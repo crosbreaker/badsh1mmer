@@ -6,33 +6,36 @@ fail() {
     printf "%s\n" "$1"
     printf "error occurred\n"
     exit 1
-}
-if [ -z "$board" ]; then
-    fail "Usage: bash $0 <board>"
-fi
+}                                                                                                   
+findimage(){ # Taken from murkmod
+    echo "Attempting to find recovery image from https://github.comMercuryWorkshop/chromeos-releases-data data..."
+    local mercury_data_url="https://raw.githubusercontent.com/MercuryWorkshop/chromeos-releases-data/refs/heads/main/data.json"
+    local mercury_url=$(curl -ks "$mercury_data_url" | jq -r --arg board "$board" --arg version 129 '
+      .[$board].images
+      | map(select(
+          .channel == "stable-channel" and
+          (.chrome_version | type) == "string" and
+          (.chrome_version | startswith($version + "."))
+        ))
+      | sort_by(.platform_version)
+      | .[0].url
+    ')
 
-if [ "$board" == "nissa" ]; then
-    reco_name="chromeos_16002.60.0_nissa_recovery_stable-channel_mp-v32"
-elif [ "$board" == "skyrim" ]; then
-    reco_name="chromeos_16002.60.0_skyrim_recovery_stable-channel_mp-v8"
-elif [ "$board" == "corsola" ]; then
-    reco_name="chromeos_16002.60.0_corsola_recovery_stable-channel_mp-v14"
-elif [ "$board" == "brya" ]; then
-    reco_name="chromeos_16002.60.0_brya_recovery_stable-channel_mp-v18"
-elif [ "$board" == "dedede" ]; then
-    reco_name="chromeos_16002.60.0_dedede_recovery_stable-channel_mp-v50"
-else
-    echo "Unsupported board. note: your board name must not be capitalized.  Please use another method to create badbr0ker, or contact us."
-    exit 1
-fi
+    if [ -n "$mercury_url" ] && [ "$mercury_url" != "null" ]; then
+        echo "Found a match!"
+        FINAL_URL="$mercury_url"
+        MATCH_FOUND=1
+        echo "$mercury_url"
+    fi
+}
 check_deps() {
 	for dep in "$@"; do
 		command -v "$dep" &>/dev/null || echo "$dep"
 	done
 }
-missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar curl git python3 protoc gzip)
+missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar curl git python3 protoc gzip jq)
 [ "$missing_deps" ] && fail "The following required commands weren't found in PATH:\n${missing_deps}"
-
+findimage
 recopath="$reco_name.bin"
 recozippedpath="$reco_name.bin.zip"
 recolink="https://dl.google.com/dl/edgedl/chromeos/recovery/$recozippedpath"
