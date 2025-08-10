@@ -8,7 +8,7 @@ fail() {
     exit 1
 }                                                                                                   
 findimage(){ # Taken from murkmod
-    echo "Attempting to find recovery image from https://github.comMercuryWorkshop/chromeos-releases-data data..."
+    echo "Attempting to find recovery image from https://github.com/MercuryWorkshop/chromeos-releases-data data..."
     local mercury_data_url="https://raw.githubusercontent.com/MercuryWorkshop/chromeos-releases-data/refs/heads/main/data.json"
     local mercury_url=$(curl -ks "$mercury_data_url" | jq -r --arg board "$board" --arg version 129 '
       .[$board].images
@@ -36,12 +36,9 @@ check_deps() {
 missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar curl git python3 protoc gzip jq)
 [ "$missing_deps" ] && fail "The following required commands weren't found in PATH:\n${missing_deps}"
 findimage
-recopath="$reco_name.bin"
-recozippedpath="$reco_name.bin.zip"
-recolink="https://dl.google.com/dl/edgedl/chromeos/recovery/$recozippedpath"
 
 echo "Downloading 129 recovery image"
-wget "$recolink" || fail "Failed to download recovery image"
+wget "$mercury_url" || fail "Failed to download recovery image"
 
 echo "Extracting 129 recovery image"
 unzip "$recozippedpath" || fail "Failed to unzip recovery image"
