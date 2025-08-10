@@ -35,6 +35,7 @@ check_deps() {
 }
 missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar curl git python3 protoc gzip jq)
 [ "$missing_deps" ] && fail "The following required commands weren't found in PATH:\n${missing_deps}"
+
 findimage
 
 echo "Downloading 129 recovery image"
