@@ -1,4 +1,5 @@
 ### badbr0ker
+# THE BUILDER IS CURRENTLY BROKEN!  PLEASE USE [prebuilts](#PREBUILTS)
 # Support
 If you need any kind of support, please join our [discord server](https://discord.gg/nrMVY29MUb) for help
 ### If you would like the script to do everything for you:
