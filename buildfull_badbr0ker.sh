@@ -38,20 +38,24 @@ missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar curl 
 findimage
 
 echo "Downloading 129 recovery image"
-wget "$FINAL_URL" || fail "Failed to download recovery image"
+curl --progress-bar -k "$FINAL_URL" -o recovery.zip || fail "Failed to download recovery image"
 
 echo "Extracting 129 recovery image"
-unzip "$recozippedpath" || fail "Failed to unzip recovery image"
+unzip recovery.zip || fail "Failed to unzip recovery image"
 
 echo "Deleting 129 recovery image zip (unneeded now)"
-rm "$recozippedpath" || fail "Failed to delete zipped recovery image"
+rm recovery.zip || fail "Failed to delete zipped recovery image"
+
+#more murkmod code
+FILENAME=$(find . -maxdepth 2 -name "chromeos_*.bin") # 2 incase the zip format changes
+echo "Found recovery image from archive at $FILENAME"
 
 echo "running update_downloader.sh"
 bash update_downloader.sh "$board" || fail "update_downloader.sh exited with an error"
 
 echo "running build_badrecovery.sh"
-sudo ./build_badrecovery.sh -i "$recopath" -t unverified || fail "build_badrecovery.sh exited with an error"
+sudo ./build_badrecovery.sh -i "$FILENAME" -t unverified || fail "build_badrecovery.sh exited with an error"
 echo "Cleaning up directory"
 rm -rf unverified/16093
 echo "No errors detected while buildng the badbr0ker image"
-echo "File saved to $recopath"
+echo "File saved to $FILENAME"
