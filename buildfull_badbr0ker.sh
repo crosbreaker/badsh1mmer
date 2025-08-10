@@ -38,7 +38,7 @@ missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar curl 
 findimage
 
 echo "Downloading 129 recovery image"
-wget "$mercury_url" || fail "Failed to download recovery image"
+wget "$FINAL_URL" || fail "Failed to download recovery image"
 
 echo "Extracting 129 recovery image"
 unzip "$recozippedpath" || fail "Failed to unzip recovery image"
