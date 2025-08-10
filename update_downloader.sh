@@ -5,7 +5,7 @@ SCRIPT_DIR=${SCRIPT_DIR:-"."}
 set -eE
 
 URL_FILE="$SCRIPT_DIR/lib/latest_r132.txt"
-OUT_DIR="$SCRIPT_DIR/unverified"
+OUT_DIR="$SCRIPT_DIR/badbr0ker"
 UPDATE_ENGINE="$SCRIPT_DIR/lib/update_engine"
 UPDATE_SOURCE="https://dl.google.com/chromeos"
 
