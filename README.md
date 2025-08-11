@@ -20,7 +20,7 @@ badbr0ker is br0ker injected into badrecovery unverified, allowing for unenrollm
 Download an prebuilt from the [prebuilts section](#PREBUILTS), or build an image your self with the above commands.  Flash it using the [Chromebook Recovery Utility](https://chromewebstore.google.com/detail/chromebook-recovery-utili/pocpnlppkickgojjlmhdmidojbmbodfm), or anything else that etches
 ### I have a usb, what now?
 Complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), then enter developer mode and recover to your usb
-### PREBUILTS
+### Prebuilts
 [fanqyxl all](https://dl.fanqyxl.net/Crosbreaker/badbr0ker)
 ### Credits:
 [HarryJarry1](https://github.com/HarryJarry1) - All badbr0ker development
