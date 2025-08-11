@@ -16,11 +16,15 @@ sudo ./build_badrecovery.sh -i image.bin -t unverified
 ```
 ### What is this?
 badbr0ker is br0ker injected into badrecovery unverified, allowing for unenrollment on keyrolled kv5 ChromeOS devices.
+### How do I make a usb?
+Download an prebuilt from the [prebuilts section](#PREBUILTS), or build an image your self with the above commands.  Flash it using the [Chromebook Recovery Utility](https://chromewebstore.google.com/detail/chromebook-recovery-utili/pocpnlppkickgojjlmhdmidojbmbodfm), or anything else that etches
 ### I have a usb, what now?
 Complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), then enter developer mode and recover to your usb
 ### PREBUILTS
 [fanqyxl all](https://dl.fanqyxl.net/Crosbreaker/badbr0ker)
 ### Credits:
+[HarryJarry1](https://github.com/HarryJarry1) - All badbr0ker development
+
 [BinBashBanana](https://github.com/binbashbanana) - original br0ker, badrecovery
 
 [Lxrd](https://github.com/SPIRAME) - Sh1ttyOOBE
