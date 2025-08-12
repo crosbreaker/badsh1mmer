@@ -69,6 +69,7 @@ protoc --proto_path="$UPDATE_ENGINE" --python_out="$UPDATE_ENGINE"/scripts/updat
 
 echo "Extracting update payload..."
 python3 "$UPDATE_ENGINE"/scripts/paycheck.py "$WORKDIR/$file_name" --part_names kernel root --out_dst_part_paths "$WORKDIR"/kern "$WORKDIR"/root
+rm "$WORKDIR/$file_name"
 
 echo "Compressing update payload..."
 mkdir -p "$OUT_DIR/$major_version/$BOARD"
