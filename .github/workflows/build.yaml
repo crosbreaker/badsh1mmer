@@ -4,7 +4,7 @@ jobs:
   build:
     strategy: 
       matrix:
-        board: [nissa, dedede]
+        board: [nissa, dedede, brya, corsola]
 
     runs-on: ubuntu-latest
     steps:
