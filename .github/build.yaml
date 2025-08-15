@@ -1,0 +1,38 @@
+on: [push]
+
+jobs:
+  build:
+    strategy: 
+      matrix:
+        board: [nissa, dedede]
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 32768
+          swap-size-mb: 64
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+
+      - name: download repo
+        uses: actions/checkout@v4
+      
+      - name: run build
+        run: |
+          set -x
+          sudo apt-get update
+          sudo apt-get install -y pv
+
+          sudo QUIET=1 bash buildfull_badbr0ker.sh "${{ matrix.board }}"
+
+      - name: upload img
+        uses: actions/upload-artifact@v4
+        with:
+          name: badrecovery_${{ matrix.board }}
+          path: data/badrecovery_*.bin
+          compression-level: 7
