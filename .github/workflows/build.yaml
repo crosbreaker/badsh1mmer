@@ -28,7 +28,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler pv
           sudo apt-get install -y pv
-
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install --upgrade --force-reinstall protobuf six
           sudo QUIET=1 bash buildfull_badbr0ker.sh "${{ matrix.board }}"
 
       - name: upload img
