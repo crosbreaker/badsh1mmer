@@ -35,5 +35,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: badrecovery_${{ matrix.board }}
-          path: data/badrecovery_*.bin
+          path: data/chromeos*.bin
           compression-level: 7
