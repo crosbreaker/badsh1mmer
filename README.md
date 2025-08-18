@@ -21,9 +21,9 @@ Download an prebuilt from the [prebuilts section](#prebuilts), or build an image
 ### I have a usb, what now?
 Complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), then enter developer mode and recover to your usb
 ### Prebuilts
-[GitHub actions](https://nightly.link/crosbreaker/badbr0ker/actions/runs/16983496435)
+[Fanqyxl](https://dl.fanqyxl.net/Crosbreaker/badbr0ker)
 
-[fanqyxl](https://dl.fanqyxl.net/Crosbreaker/badbr0ker)
+[GitHub actions](https://nightly.link/crosbreaker/badbr0ker/actions/runs/16983496435)
 ### Credits:
 [HarryJarry1](https://github.com/HarryJarry1) - All badbr0ker development 
 
