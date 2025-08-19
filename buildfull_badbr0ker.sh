@@ -3,10 +3,10 @@
 
 board=$1
 fail() {
-    printf "%s\n" "$1"
-    printf "error occurred\n"
+    printf "%b\n" "$1" >&2
+    printf "error occurred\n" >&2
     exit 1
-}                                                                                                   
+}
 findimage(){ # Taken from murkmod
     echo "Attempting to find recovery image from https://github.com/MercuryWorkshop/chromeos-releases-data data..."
     local mercury_data_url="https://raw.githubusercontent.com/MercuryWorkshop/chromeos-releases-data/refs/heads/main/data.json"
