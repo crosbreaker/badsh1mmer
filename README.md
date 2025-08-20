@@ -30,3 +30,5 @@ Complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), then enter dev
 [BinBashBanana](https://github.com/binbashbanana) - original br0ker, badrecovery
 
 [Lxrd](https://github.com/SPIRAME) - Sh1ttyOOBE
+
+[Crossjbly](https://github.com/crossjbly) - Fixing a few things
