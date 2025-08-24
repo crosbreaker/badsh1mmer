@@ -729,7 +729,14 @@ if [ $PAYLOAD_ONLY -eq 0 ]; then
 		fi
 
 		move_blocking_partitions "$LOOPDEV" 3 "$((ROOTA_NEW_SIZE / SECTOR_SIZE))"
+        EXPANDED_SIZE=$((ROOTA_NEW_SIZE + IMAGE_SIZE_BUFFER))
+        log_info "Maximum new image size: $(format_bytes $EXPANDED_SIZE)"
 
+        if [ $EXPANDED_SIZE -gt $OLD_SIZE ]; then
+            resize_image "$EXPANDED_SIZE" "$IMAGE" "$LOOPDEV"
+        fi
+
+        move_blocking_partitions "$LOOPDEV" 3 "$((ROOTA_NEW_SIZE / SECTOR_SIZE))"
 		log_info "Resizing ROOT-A"
 		"$CGPT" add "$LOOPDEV" -i 3 -s "$((ROOTA_NEW_SIZE / SECTOR_SIZE))"
 		partx -u -n 3 "$LOOPDEV"
