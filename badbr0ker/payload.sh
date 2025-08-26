@@ -139,6 +139,6 @@ else
 	stty echo
 fi
 echo "launching payloads_menu.sh"
-sh /usb/usr/sbin/payload_menu.sh
+sh /usb/usr/sbin/payloads_menu.sh
 printf "\033[?25h"
 while :; do sh; done
