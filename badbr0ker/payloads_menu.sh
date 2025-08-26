@@ -1,8 +1,5 @@
 #!/bin/bash
-# HEY YOU! THIS EXPLOIT IS ALREADY PATCHED!!!
-# The vulnerable code was removed in r133 via https://crrev.com/c/6040974
-# A new kernel version (6 for most boards) is expected to release in r138 or r139.
-# Made by OlyB :D Enjoy :D
+
 SCRIPT_DIR=$(dirname "$0")
 SCRIPT_DIR=${SCRIPT_DIR:-"."}
 
@@ -10,7 +7,7 @@ set -eE
 
 SCRIPT_DATE="[2025-08-26]"
 PAYLOAD_DIR=/usb/usr/sbin/scripts
-RECOVERY_KEY_LIST="$SCRIPT_DIR"/short_recovery_keys.txt
+RECOVERY_KEY_LIST="$PAYLOAD_DIR"/short_recovery_keys.txt
 
 MNT=
 TMPFILE=
