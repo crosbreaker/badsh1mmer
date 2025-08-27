@@ -34,7 +34,6 @@ echo "(4) MrChromebox Firmware Utility"
 echo "(5) Reset Kernel Rollback version / sets kernver to 0x00010001 (factory default)"
 echo "(s) Shell"
 echo "(c) Credits"
-echo "(i) Information"
 echo "(e) Exit and reboot"
 echo ""
 echo -n "> "
@@ -43,22 +42,27 @@ read choice
 if [ "$choice" = "1" ]; then
     /bin/sh "$PAYLOAD_DIR/badbr0ker.sh"
 	/bin/sh
+ 	sleep infinity
 elif [ "$choice" = "2" ]; then
     /bin/sh "$PAYLOAD_DIR/caliginosity.sh" # someone fix mrchromebox and icarus if they're broken, I just copy pasted from the sh1mmer repo
 	echo "entering shell..."
  	/bin/sh
+  	sleep infinity
 elif [ "$choice" = "3" ]; then
     /bin/sh "$PAYLOAD_DIR/icarus.sh"
 	echo "entering shell..."
  	/bin/sh
+  	sleep infinity
 elif [ "$choice" = "4" ]; then
     /bin/sh "$PAYLOAD_DIR/mrchromebox.sh"
 	echo "entering shell..."
  	/bin/sh
+  	sleep infinity
 elif [ "$choice" = "5" ]; then
     /bin/sh "$PAYLOAD_DIR/reset-kern-rollback.sh"
 	echo "entering shell..."
  	/bin/sh
+  	sleep infinity
 elif [ "$choice" = "s" ]; then
 	echo "entering shell..."
     /bin/sh
@@ -88,4 +92,5 @@ else
 	echo "entering shell..."
  	echo ""
   	/bin/sh
+   	sleep infinity
 fi
