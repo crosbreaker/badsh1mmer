@@ -18,8 +18,8 @@ fail() {
 }
  # ill add fail stuff later ima test it rn to make sure its working.
 echo "Select a script to run:"
-echo "1) badbr0ker.sh"
-echo "2) test function | remove later."
+echo "1) Br0ker"
+echo "2) SH1mmer caliginosity.sh / Revert all changes made by sh1mmer or badsh1mmer (reenroll + more)"
 echo "e) exit and reboot"
 
 echo -n "Enter a number: "
@@ -28,7 +28,7 @@ read choice
 if [ "$choice" = "1" ]; then
     sh "$PAYLOAD_DIR/badbr0ker.sh"
 elif [ "$choice" = "2" ]; then
-    echo "testing..."
+    sh "$PAYLOAD_DIR/caliginosity.sh" # someone fix mrchromebox and icarus when I add it
 elif [ "$choice" = "e" ]; then
     echo "Rebooting..."
 	reboot
