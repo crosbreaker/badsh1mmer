@@ -47,23 +47,23 @@ elif [ "$choice" = "2" ]; then
     /bin/sh "$PAYLOAD_DIR/caliginosity.sh" # someone fix mrchromebox and icarus if they're broken, I just copy pasted from the sh1mmer repo
 	echo "entering shell..."
  	/bin/sh
-elif [ "$choice" = "3"]; then
+elif [ "$choice" = "3" ]; then
     /bin/sh "$PAYLOAD_DIR/icarus.sh"
 	echo "entering shell..."
  	/bin/sh
-elif [ "$choice" = "4"]; then
+elif [ "$choice" = "4" ]; then
     /bin/sh "$PAYLOAD_DIR/mrchromebox.sh"
 	echo "entering shell..."
  	/bin/sh
-elif [ "$choice" = "5"]; then
+elif [ "$choice" = "5" ]; then
     /bin/sh "$PAYLOAD_DIR/reset-kern-rollback.sh"
 	echo "entering shell..."
  	/bin/sh
-elif [ "$choice" = "s"]; then
+elif [ "$choice" = "s" ]; then
 	echo "entering shell..."
     /bin/sh
     sleep infinity
-elif [ "$choice" = "c"]; then
+elif [ "$choice" = "c" ]; then
     echo "-----BadSH1mmer-----"
     echo "OlyB: creating BadRecovery, and Br0ker, + helping with scripts and some other stuff too"
     echo "HarryJarry1: creating BadBr0ker, finding the vpd vulnerability"
