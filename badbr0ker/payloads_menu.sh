@@ -6,6 +6,7 @@ SCRIPT_DIR=${SCRIPT_DIR:-"."}
 set -eE
 
 SCRIPT_DATE="[2025-08-26]"
+SCRIPT_BUILD="0.0.1 BETA"
 PAYLOAD_DIR=/usb/usr/sbin/scripts
 RECOVERY_KEY_LIST="$PAYLOAD_DIR"/short_recovery_keys.txt
 
@@ -16,31 +17,50 @@ fail() {
 	printf "%b\n" "$*" >&2
 	exit 1
 }
- # ill add fail stuff later ima test it rn to make sure its working.
-echo "Select a script to run:"
-echo "1) Br0ker / Br0ker (unenrollment up to kernver 5) By OlyB. Ported to BadRecovery by HarryJarry1"
-echo "2) SH1mmer caliginosity.sh / Revert all changes made by sh1mmer or badsh1mmer (reenroll + more)"
-echo "3) Icarus / Icarus (unenrollment up to r129, by writable)"
-echo "4) MrChromebox Firmware Utility"
-echo "5) Reset Kernel Rollback version / sets kernver to 0x00010001 (factory defaults)"
-echo "s) Shell"
-echo "c) Credits"
-echo "e) Exit and reboot"
 
-echo -n "Enter a number: "
+clear
+
+echo "===============================================BADSH1MMER========================================"
+echo "                                              $SCRIPT_DATE"
+echo "                                           v$SCRIPT_BUILD"
+echo "                                          https://crosbreaker.dev"
+echo "                                  https://github.com/crosbreaker/BadSH1mmer"
+echo "================================================================================================="
+echo "                                         Select a script to run:"
+echo "(1) Br0ker / Br0ker (unenrollment up to kernver 5) By OlyB. Ported to BadRecovery by HarryJarry1"
+echo "(2) SH1mmer caliginosity.sh / Revert all changes made by sh1mmer or badsh1mmer (reenroll + more)"
+echo "(3) Icarus / Icarus (unenrollment up to r129, by writable)"
+echo "(4) MrChromebox Firmware Utility"
+echo "(5) Reset Kernel Rollback version / sets kernver to 0x00010001 (factory default)"
+echo "(s) Shell"
+echo "(c) Credits"
+echo "(i) Information"
+echo "(e) Exit and reboot"
+echo ""
+echo -n "> "
 read choice
 
 if [ "$choice" = "1" ]; then
     /bin/sh "$PAYLOAD_DIR/badbr0ker.sh"
+	/bin/sh
 elif [ "$choice" = "2" ]; then
     /bin/sh "$PAYLOAD_DIR/caliginosity.sh" # someone fix mrchromebox and icarus if they're broken, I just copy pasted from the sh1mmer repo
+	echo "entering shell..."
+ 	/bin/sh
 elif [ "$choice" = "3"]; then
     /bin/sh "$PAYLOAD_DIR/icarus.sh"
+	echo "entering shell..."
+ 	/bin/sh
 elif [ "$choice" = "4"]; then
     /bin/sh "$PAYLOAD_DIR/mrchromebox.sh"
+	echo "entering shell..."
+ 	/bin/sh
 elif [ "$choice" = "5"]; then
     /bin/sh "$PAYLOAD_DIR/reset-kern-rollback.sh"
+	echo "entering shell..."
+ 	/bin/sh
 elif [ "$choice" = "s"]; then
+	echo "entering shell..."
     /bin/sh
     sleep infinity
 elif [ "$choice" = "c"]; then
@@ -48,10 +68,24 @@ elif [ "$choice" = "c"]; then
     echo "OlyB: creating BadRecovery, and Br0ker, + helping with scripts and some other stuff too"
     echo "HarryJarry1: creating BadBr0ker, finding the vpd vulnerability"
     echo "Lxrd: Sh1ttyOOBE"
-    # i gtg ill add others later
+	echo "crossjbly: Creating menu, fixing stuff"
+ 	echo "fanqyxl: hosting (hopefully)"
+   	echo "-------------------"
+	echo ""
+ 	echo "entering shell..."
+	/bin/sh
+ 	sleep infinity
 elif [ "$choice" = "e" ]; then
-    echo "Rebooting..."
+    echo "Rebooting in 3 seconds..."
+	sleep 3
 	reboot
+ 	echo "If you are seeing this the reboot failed, please manually reboot by hitting REFRESH and POWER at the same time."
+  	echo "Or you can play around with the shell."
+    /bin/sh
+ 	sleep infinity
 else
-    echo "Invalid choice."
+    echo "Invalid choice"
+	echo "entering shell..."
+ 	echo ""
+  	/bin/sh
 fi
