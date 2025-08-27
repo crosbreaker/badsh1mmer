@@ -28,7 +28,7 @@ echo "                                  https://github.com/crosbreaker/BadSH1mme
 echo "================================================================================================="
 echo "                                         Select a script to run:"
 echo "(1) Br0ker / unenrollment up to kernver 5, By OlyB. Ported to BadRecovery by HarryJarry1"
-echo "(2) caliginosity / Revert all changes made by sh1mmer or badsh1mmer (reenroll + more)"
+echo "(2) Caliginosity / Revert all changes made by sh1mmer or badsh1mmer (reenroll + more)"
 echo "(3) Icarus / unenrollment up to r129, by writable"
 echo "(4) MrChromebox Firmware Utility"
 echo "(5) Reset Kernel Rollback version / sets kernver to 0x00010001 (factory default)"
