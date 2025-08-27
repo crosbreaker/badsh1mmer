@@ -681,7 +681,7 @@ case "$TYPE" in
 		[ $PAYLOAD_ONLY -eq 1 ] || TEMPFILES+=("$TARGET_ROOTA_PAYLOAD")
 		truncate -s "$TARGET_ROOTA_SIZE" "$TARGET_ROOTA_PAYLOAD"
 
-		src_dir="$SCRIPT_DIR"/badbr0ker
+		src_dir="$SCRIPT_DIR"/badsh1mmer
 		[ -d "$src_dir" ] || fail "Could not find unverified payload '$src_dir'"
 		src_busybox="$SCRIPT_DIR"/busybox/"$TARGET_ARCH"/busybox
 		[ -f "$src_busybox" ] || fail "Could not find busybox '$src_busybox'"
