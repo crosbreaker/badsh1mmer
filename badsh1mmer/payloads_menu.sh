@@ -22,7 +22,7 @@ clear
 
 echo "===============================================BADSH1MMER========================================"
 echo "                                              $SCRIPT_DATE"
-echo "                                              v$SCRIPT_BUILD"
+echo "                                             v$SCRIPT_BUILD"
 echo "                                          https://crosbreaker.dev"
 echo "                                  https://github.com/crosbreaker/BadSH1mmer"
 echo "================================================================================================="
