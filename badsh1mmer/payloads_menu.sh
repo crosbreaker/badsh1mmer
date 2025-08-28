@@ -33,6 +33,7 @@ echo "(3) Icarus / unenrollment up to r129, by writable"
 echo "(4) MrChromebox Firmware Utility"
 echo "(s) Shell"
 echo "(c) Credits"
+echo "(w) whale payload"
 echo "(e) Exit and reboot"
 echo ""
 echo -n "> "
@@ -80,6 +81,9 @@ elif [ "$choice" = "e" ]; then
  	echo "If you are seeing this the reboot failed, please manually reboot by hitting REFRESH and POWER at the same time."
   	echo "Or you can play around with the shell."
     /bin/sh
+ 	sleep infinity
+elif [ "$choice" = "w" ]; then
+	/bin/sh cat "$PAYLOAD_DIR/whale.txt"
  	sleep infinity
 else
     echo "Invalid choice"
