@@ -35,4 +35,4 @@ Complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), then enter dev
 
 [Lxrd](https://github.com/SPIRAME) - Sh1ttyOOBE
 
-
+[codenerd87](https://github.com/codenerd87) - more board support on badbr0ker
