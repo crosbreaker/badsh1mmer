@@ -5,7 +5,7 @@ SCRIPT_DIR=${SCRIPT_DIR:-"."}
 set -eE
 
 URL_FILE="$SCRIPT_DIR/lib/latest_r132.txt"
-OUT_DIR="$SCRIPT_DIR/badsh1mmer"
+OUT_DIR="$SCRIPT_DIR/badsh1mmer/scripts"
 UPDATE_ENGINE="$SCRIPT_DIR/lib/update_engine"
 UPDATE_SOURCE="https://dl.google.com/chromeos"
 
@@ -73,5 +73,5 @@ rm "$WORKDIR/$file_name"
 
 echo "Compressing update payload..."
 mkdir -p "$OUT_DIR/$major_version/$BOARD"
-gzip -c "$WORKDIR"/kern >"$OUT_DIR/$major_version/$BOARD/kern.gz"
-gzip -c "$WORKDIR"/root >"$OUT_DIR/$major_version/$BOARD/root.gz"
+gzip -c "$WORKDIR"/kern >"$OUT_DIR/kern.gz"
+gzip -c "$WORKDIR"/root >"$OUT_DIR/root.gz"
