@@ -1,4 +1,7 @@
 ### badsh1mmer
+
+# MRCHROMEBOX FIRMWARE UTIL AND ICARUS ARE CURRENTLY BROKEN! THEY WILL BE FIXED LATER
+
 # Support
 If you need any kind of support, please join our [discord server](https://discord.gg/nrMVY29MUb) for help
 ### If you would like the script to do everything for you:
