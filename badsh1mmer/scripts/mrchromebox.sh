@@ -14,6 +14,7 @@ chmod +x /mrchromebox/firmware-util.sh
 mkdir /localroot
 mount /dev/mmcblk0p1 /localroot # TODO: add int disk determination
 mount --bind /dev /localroot/dev
+mount --bind /sys /localroot/sys
 mount --bind /mrchromebox /localroot/mnt/stateful_partition # use stateful because it is always clean
 chroot /localroot /mnt/stateful_partition/mrchromebox/firmware-util.sh
 echo "cleaning up..."
