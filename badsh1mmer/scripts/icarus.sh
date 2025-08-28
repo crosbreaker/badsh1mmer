@@ -1,97 +1,65 @@
-#!/bin/bash
-# icarus by writable, entry script rewrite by OlyB
-# more info at https://github.com/cosmicdevv/Icarus-Lite
+#!/bin/sh
 
-set -eE
+# written by appleflyer
 
-SCRIPT_DATE="[2025-04-20]"
-PAYLOAD=/usb/usr/sbin/scripts/icarus.tar.gz
-
-COLOR_RESET="\033[0m"
-COLOR_YELLOW_B="\033[1;33m"
-
-fail() {
-	printf "%b\n" "$*" >&2
-	exit 1
+mexit(){
+	printf "$1\n"
+	printf "exiting...\n"
+	exit
 }
 
-get_largest_cros_blockdev() {
-	local largest size dev_name tmp_size remo
-	size=0
-	for blockdev in /sys/block/*; do
-		dev_name="${blockdev##*/}"
-		echo "$dev_name" | grep -q '^\(loop\|ram\)' && continue
-		tmp_size=$(cat "$blockdev"/size)
-		remo=$(cat "$blockdev"/removable)
-		if [ "$tmp_size" -gt "$size" ] && [ "${remo:-0}" -eq 0 ]; then
-			case "$(sfdisk -d "/dev/$dev_name" 2>/dev/null)" in
-				*'name="STATE"'*'name="KERN-A"'*'name="ROOT-A"'*)
-					largest="/dev/$dev_name"
-					size="$tmp_size"
-					;;
-			esac
-		fi
-	done
-	echo "$largest"
+get_stateful() {
+	# get_largest_cros_blockdev does not work in BadApple.
+	local ROOTDEV_LIST=$(cgpt find -t rootfs) # thanks stella
+	if [ -z "$ROOTDEV_LIST" ]; then
+		mexit "could not parse for rootdev devices. this should not have happened."
+	fi
+	local device_type=$(echo "$ROOTDEV_LIST" | grep -oE 'mmc|nvme|sda' | head -n 1)
+	case $device_type in
+	"mmc")
+		stateful=/dev/mmcblk0p1
+		break
+		;;
+	"nvme")
+		stateful=/dev/nvme0n1
+		break
+		;;
+	"sda")
+		stateful=/dev/sda1
+		break
+		;;
+	*)
+		mexit "an unknown error occured. this should not have happened."
+		;;
+	esac
 }
 
-format_part_number() {
-	echo -n "$1"
-	echo "$1" | grep -q '[0-9]$' && echo -n p
-	echo "$2"
+does_out_exist() {
+    [ ! -d "/usb/usr/sbin/scripts/PKIMetadata" ] && mexit "out directory not in usb stick. this should NOT happen."
 }
 
-cleanup() {
-	umount "$STATEFUL_MNT" || :
+wipe_stateful(){
+    mkfs.ext4 -F "$stateful" || mexit "failed to wipe stateful, what happened?"
+    mount "$stateful" /stateful || mexit "failed to mount, what happened?"
+    mkdir -p /stateful/unencrypted
 }
 
-[ -f "$PAYLOAD" ] || fail "$PAYLOAD not found!"
+move_out_to_stateful(){
+    cp /usb/usr/sbin/PKIMetadata /stateful/unencrypted/ -rvf
+    chown 1000 /stateful/unencrypted/PKIMetadata -R
+}
 
-CROS_DEV="$(get_largest_cros_blockdev)"
-[ -z "$CROS_DEV" ] && fail "No CrOS SSD found on device!"
+main() {
+        mkdir /stateful #idk if this is in badrecovery or not
+	does_out_exist
+	get_stateful
+	wipe_stateful
+	move_out_to_stateful
+	umount /stateful
+	crossystem disable_dev_request=1 || mexit "how did this shit even fail??"
+	read -p "payload finished! enter to view payloads. you will boot into verified mode."
+	echo "should not have reached here. error occured."
+	exit
+}
 
-TARGET_PART="$(format_part_number "$CROS_DEV" 1)"
-[ -b "$TARGET_PART" ] || fail "$TARGET_PART is not a block device!"
-
-clear
-echo "Welcome to Icarus."
-echo "Script date: ${SCRIPT_DATE}"
-echo ""
-echo -e "${COLOR_YELLOW_B}READ ME: https://github.com/cosmicdevv/Icarus-Lite${COLOR_RESET}"
-echo ""
-echo "This will destroy all data on ${TARGET_PART}."
-echo "Additional steps are needed to unenroll; see above link."
-echo "Note that this exploit is patched in ChromeOS r130."
-echo "Continue? (y/N)"
-read -r action
-case "$action" in
-	[yY]) : ;;
-	*) fail "Abort." ;;
-esac
-
-trap 'echo $BASH_COMMAND failed with exit code $?.' ERR
-trap 'cleanup; exit' EXIT
-trap 'echo Abort.; cleanup; exit' INT
-
-echo "Wiping and mounting stateful"
-mkfs.ext4 -F -b 4096 -L H-STATE "$TARGET_PART" >/dev/null 2>&1
-STATEFUL_MNT=/icarus
-mkdir -p "$STATEFUL_MNT"
-mount "$TARGET_PART" "$STATEFUL_MNT"
-
-mkdir -p "$STATEFUL_MNT"/unencrypted/PKIMetadata
-
-echo -n "Extracting"
-tar -xf "$PAYLOAD" -C "$STATEFUL_MNT"/unencrypted/PKIMetadata --checkpoint=.100
-echo ""
-
-echo "Cleaning up"
-cleanup
-
-crossystem disable_dev_request=1 || :
-crossystem disable_dev_request=1 # grunt weirdness
-
-echo "Finished! Press enter for shell."
-read -rs
-/bin/sh
-sleep infinity
+main
