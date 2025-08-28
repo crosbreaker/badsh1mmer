@@ -1,11 +1,9 @@
 #!/bin/bash
 
-echo "DEBUG: $(pwd)"
-
-if [ -f mrchromebox.tar.gz ]; then
+if [ -f /usb/usr/sbin/scripts/mrchromebox.tar.gz ]; then
 	echo "extracting mrchromebox.tar.gz"
 	mkdir /tmp/mrchromebox
-	tar -xf mrchromebox.tar.gz -C /tmp/mrchromebox
+	tar -xf /usb/usr/sbin/scripts/mrchromebox.tar.gz -C /tmp/mrchromebox
 else
 	echo "mrchromebox.tar.gz not found!" >&2
 	exit 1
