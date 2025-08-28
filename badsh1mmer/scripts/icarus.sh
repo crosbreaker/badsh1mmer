@@ -58,8 +58,7 @@ main() {
 	umount /stateful
 	crossystem disable_dev_request=1 || mexit "how did this shit even fail??"
 	read -p "payload finished! enter to view payloads. you will boot into verified mode."
-	echo "should not have reached here. error occured."
-	exit
+	/bin/sh
 }
 
 main
