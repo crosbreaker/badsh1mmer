@@ -11,7 +11,7 @@ fi
 
 clear
 cd /tmp/mrchromebox
-chmod +x firmware-util.sh
-./firmware-util.sh || :
+chmod +x /tmp/mrchromebox/firmware-util.sh
+./tmp/mrchromebox/firmware-util.sh || :
 
 rm -rf /tmp/mrchromebox
