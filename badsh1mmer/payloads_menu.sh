@@ -31,7 +31,6 @@ echo "(1) Br0ker / unenrollment up to kernver 5, By OlyB. Ported to BadRecovery 
 echo "(2) Caliginosity / Revert all changes made by sh1mmer or badsh1mmer (reenroll + more)"
 echo "(3) Icarus / unenrollment up to r129, by writable"
 echo "(4) MrChromebox Firmware Utility"
-echo "(5) Reset Kernel Rollback version / sets kernver to 0x00010001 (factory default)"
 echo "(s) Shell"
 echo "(c) Credits"
 echo "(e) Exit and reboot"
@@ -55,11 +54,6 @@ elif [ "$choice" = "3" ]; then
   	sleep infinity
 elif [ "$choice" = "4" ]; then
     /bin/sh "$PAYLOAD_DIR/mrchromebox.sh"
-	echo "entering shell..."
- 	/bin/sh
-  	sleep infinity
-elif [ "$choice" = "5" ]; then
-    /bin/sh "$PAYLOAD_DIR/reset-kern-rollback.sh"
 	echo "entering shell..."
  	/bin/sh
   	sleep infinity
