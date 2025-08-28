@@ -75,7 +75,7 @@ trap 'echo Abort.; cleanup; exit' INT
 
 echo "Wiping and mounting stateful"
 mkfs.ext4 -F -b 4096 -L H-STATE "$TARGET_PART" >/dev/null 2>&1
-STATEFUL_MNT=$(mktemp -d)
+STATEFUL_MNT=/icarus
 mkdir -p "$STATEFUL_MNT"
 mount "$TARGET_PART" "$STATEFUL_MNT"
 
