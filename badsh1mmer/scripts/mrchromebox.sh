@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "DEBUG: $(pwd)"
+
 if [ -f mrchromebox.tar.gz ]; then
 	echo "extracting mrchromebox.tar.gz"
 	mkdir /tmp/mrchromebox
