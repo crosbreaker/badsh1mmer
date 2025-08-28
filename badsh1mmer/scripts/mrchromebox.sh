@@ -2,7 +2,7 @@
 
 if [ -f /usb/usr/sbin/scripts/mrchromebox.tar.gz ]; then
 	echo "extracting mrchromebox.tar.gz"
-	mkdir /tmp/mrchromebox
+	mkdir -p /tmp/mrchromebox
 	tar -xf /usb/usr/sbin/scripts/mrchromebox.tar.gz -C /tmp/mrchromebox
 else
 	echo "mrchromebox.tar.gz not found!" >&2
