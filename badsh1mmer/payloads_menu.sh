@@ -83,7 +83,7 @@ elif [ "$choice" = "e" ]; then
     /bin/sh
  	sleep infinity
 elif [ "$choice" = "w" ]; then
-	/bin/sh cat "$PAYLOAD_DIR/whale.txt"
+	cat "$PAYLOAD_DIR/whale.txt"
  	sleep infinity
 else
     echo "Invalid choice"
