@@ -1,21 +1,21 @@
-### badbr0ker
+### badsh1mmer
 # Support
 If you need any kind of support, please join our [discord server](https://discord.gg/nrMVY29MUb) for help
 ### If you would like the script to do everything for you:
 ```bash
-git clone https://github.com/crosbreaker/badbr0ker
-cd badbr0ker
-bash buildfull_badbr0ker.sh <board>
+git clone https://github.com/crosbreaker/badsh1mmer
+cd badsh1mmer
+bash buildfull_badsh1mmer.sh <board>
 ```
 ### If you would like to use a local recovery image:
 ```bash
-git clone https://github.com/crosbreaker/badbr0ker
-cd badbr0ker
+git clone https://github.com/crosbreaker/badsh1mmer
+cd badsh1mmer
 bash update_downloader.sh <board>
 sudo ./build_badrecovery.sh -i image.bin -t unverified
 ```
 ### What is this?
-badbr0ker is br0ker injected into badrecovery unverified, allowing for unenrollment on keyrolled kv5 ChromeOS devices.
+badsh1mmer is a sh1mmer payloads menu injected into badrecovery unverified, allowing for unenrollment on keyrolled kv5 ChromeOS devices.
 ### If you are on a [BadApple](https://github.com/applefritter-inc/BadApple) vulernable device
 Simply run the following in the shell, while connected to wifi:
 ```bash
@@ -26,17 +26,16 @@ Download an prebuilt from the [prebuilts section](#prebuilts), or build an image
 ### I have a usb, what now?
 Complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), then enter developer mode and recover to your usb
 ### Prebuilts
-[Crosbreaker](https://dl.crosbreaker.dev/ChromeOS/badbr0ker/)
 
-[Fanqyxl](https://dl.fanqyxl.net/Crosbreaker/badbr0ker)
+none right now
 
-[GitHub actions](https://nightly.link/crosbreaker/badbr0ker/actions/runs/17192455431)
 ### Credits:
-[HarryJarry1](https://github.com/HarryJarry1) - All badbr0ker development 
+[HarryJarry1](https://github.com/HarryJarry1) - Badbr0ker, finding the VPD vulnerability
 
 [BinBashBanana](https://github.com/binbashbanana) - original br0ker, badrecovery
 
+[Crossjbly](https://github.com/crossjbly) - Creating menu, anything new that was added ontop of the original badbr0ker source code
+
 [Lxrd](https://github.com/SPIRAME) - Sh1ttyOOBE
 
-[Crossjbly](https://github.com/crossjbly) - Fixing a few things
 
