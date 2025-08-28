@@ -5,7 +5,7 @@
 set -eE
 
 SCRIPT_DATE="[2025-04-20]"
-PAYLOAD=icarus.tar.gz
+PAYLOAD=/usb/usr/sbin/scripts/icarus.tar.gz
 
 COLOR_RESET="\033[0m"
 COLOR_YELLOW_B="\033[1;33m"
