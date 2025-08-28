@@ -24,7 +24,7 @@ Download an prebuilt from the [prebuilts section](#prebuilts), or build an image
 Complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), then enter developer mode and recover to your usb
 ### Prebuilts
 
-none right now
+[Fanqyxl](https://dl.fanqyxl.net/Crosbreaker/badsh1mmer/)
 
 ### Credits:
 [HarryJarry1](https://github.com/HarryJarry1) - Badbr0ker, finding the VPD vulnerability
