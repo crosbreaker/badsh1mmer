@@ -65,7 +65,7 @@ elif [ "$choice" = "s" ]; then
 elif [ "$choice" = "c" ]; then
     echo "-----BadSH1mmer-----"
     echo "OlyB: creating BadRecovery, and Br0ker, + helping with scripts and some other stuff too"
-    echo "HarryJarry1: creating BadBr0ker, finding the vpd vulnerability"
+    echo "HarryJarry1: creating BadBr0ker, finding the vpd vulnerability. Also a ton of random fixes in badsh1mmer"
     echo "Lxrd: Sh1ttyOOBE"
 	echo "crossjbly: Creating menu, fixing stuff"
  	echo "fanqyxl: hosting (hopefully)"
