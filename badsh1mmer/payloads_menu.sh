@@ -45,22 +45,18 @@ if [ "$choice" = "1" ]; then
  	sleep infinity
 elif [ "$choice" = "2" ]; then
     /bin/sh "$PAYLOAD_DIR/caliginosity.sh" # someone fix mrchromebox and icarus if they're broken, I just copy pasted from the sh1mmer repo
-	echo "entering shell..."
- 	/bin/sh
+ 	sh /usb/usr/sbin/payloads_menu.sh
   	sleep infinity
 elif [ "$choice" = "3" ]; then
     /bin/sh "$PAYLOAD_DIR/icarus.sh"
-	echo "entering shell..."
- 	/bin/sh
+ 	sh /usb/usr/sbin/payloads_menu.sh
   	sleep infinity
 elif [ "$choice" = "4" ]; then
     /bin/sh "$PAYLOAD_DIR/mrchromebox.sh"
-	echo "entering shell..."
- 	/bin/sh
+	sh /usb/usr/sbin/payloads_menu.sh
   	sleep infinity
 elif [ "$choice" = "s" ]; then
-	echo "entering shell..."
-    /bin/sh
+	sh /usb/usr/sbin/payloads_menu.sh
     sleep infinity
 elif [ "$choice" = "c" ]; then
     echo "-----BadSH1mmer-----"
@@ -77,7 +73,7 @@ elif [ "$choice" = "c" ]; then
 elif [ "$choice" = "e" ]; then
     echo "Rebooting in 3 seconds..."
 	sleep 3
-	reboot
+	reboot -f
  	echo "If you are seeing this the reboot failed, please manually reboot by hitting REFRESH and POWER at the same time."
   	echo "Or you can play around with the shell."
     /bin/sh
