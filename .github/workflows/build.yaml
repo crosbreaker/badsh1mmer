@@ -30,11 +30,11 @@ jobs:
           sudo apt-get install -y protobuf-compiler pv
           sudo apt-get install -y pv
           sudo pip3 install protobuf six --break-system-packages
-          sudo QUIET=1 bash buildfull_badbr0ker.sh "${{ matrix.board }}"
+          sudo QUIET=1 bash buildfull_badsh1mmer.sh "${{ matrix.board }}"
 
       - name: upload img
         uses: actions/upload-artifact@v4
         with:
-          name: badbr0ker_${{ matrix.board }}
+          name: badsh1mmer_${{ matrix.board }}
           path: chromeos*.bin
           compression-level: 7
