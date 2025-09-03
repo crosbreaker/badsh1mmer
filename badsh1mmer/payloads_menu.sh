@@ -56,6 +56,7 @@ elif [ "$choice" = "4" ]; then
 	sh /usb/usr/sbin/payloads_menu.sh
   	sleep infinity
 elif [ "$choice" = "s" ]; then
+	/bin/sh #shut up! its fixed now :whale:
 	sh /usb/usr/sbin/payloads_menu.sh
     sleep infinity
 elif [ "$choice" = "c" ]; then
