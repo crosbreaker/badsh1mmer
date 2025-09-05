@@ -31,6 +31,7 @@ echo "(1) Br0ker / unenrollment up to kernver 5, By OlyB. Ported to BadRecovery 
 echo "(2) Caliginosity / Revert all changes made by sh1mmer or badsh1mmer (reenroll + more)"
 echo "(3) Icarus / unenrollment up to r129, by writable"
 echo "(4) MrChromebox Firmware Utility"
+echo "(5) Unkeyroll, by Cruzy22k"
 echo "(s) Shell"
 echo "(c) Credits"
 echo "(w) whale payload"
@@ -55,6 +56,12 @@ elif [ "$choice" = "4" ]; then
     /bin/sh "$PAYLOAD_DIR/mrchromebox.sh"
 	sh /usb/usr/sbin/payloads_menu.sh
   	sleep infinity
+
+elif [ "$choice" = "5" ]; then
+    /bin/sh "$PAYLOAD_DIR/unkeyroll.sh"
+        sh /usb/usr/sbin/payloads_menu.sh
+        sleep infinity
+
 elif [ "$choice" = "s" ]; then
 	/bin/sh #shut up! its fixed now :whale:
 	sh /usb/usr/sbin/payloads_menu.sh
