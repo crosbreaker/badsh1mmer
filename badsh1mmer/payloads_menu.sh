@@ -25,7 +25,7 @@ echo "$SCRIPT_DATE" # \n so it displays better
 echo "v$SCRIPT_BUILD"
 echo "https://crosbreaker.dev"
 echo "https://github.com/crosbreaker/BadSH1mmer"
-echo "Tip: If you want to unenroll but don't know what unenrollment to use, use Cr3nroll."
+echo "Tip: If you want to unenroll but don't know what unenrollment to use, use Cr3nroll (8)."
 echo ""
 echo "(1) Br0ker / unenrollment up to kernver 5, By OlyB. Ported to BadRecovery by HarryJarry1"
 echo "(2) Caliginosity / Revert all changes made by sh1mmer or badsh1mmer (reenroll + more)"
@@ -33,7 +33,8 @@ echo "(3) Icarus / unenrollment up to r129, by writable"
 echo "(4) MrChromebox Firmware Utility"
 echo "(5) Touch .developer_mode (skip 5 minute delay)"
 echo "(6) Daub / Originally found by Hannah, script by mariah carey"
-echo "(7) Cr3nroll / Enrollment manager by CrOSmium (dmdcr [+ emerwyi for quicksilver])"
+echo "(7) Quicksilver / Unenrollment up to kernver 6, By emerwyi. Script by mariah carey"
+echo "(8) Cr3nroll / Enrollment manager by CrOSmium"
 echo "(s) Shell"
 echo "(c) Credits"
 echo "(w) whale payload"
@@ -71,6 +72,10 @@ elif [ "$choice" = "badrecovery" ]; then # this is just for debugging.
         sh /usb/usr/sbin/payloads_menu.sh
         sleep infinity
 elif [ "$choice" = "7" ]; then
+    /bin/sh "$PAYLOAD_DIR/quicksilver.sh"
+        sh /usb/usr/sbin/payloads_menu.sh
+        sleep infinity
+elif [ "$choice" = "8" ]; then
     if [ -f "$PAYLOAD_DIR/cr3nroll.sh" ]; then # STOLEN FROM RECOMM3R!!!
 			# we use Cr3nroll in the chroot because its written in bash
 			CHPAYLOAD_DIR="${PAYLOAD_DIR#/usb}"
