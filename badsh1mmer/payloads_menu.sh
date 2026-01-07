@@ -79,7 +79,6 @@ elif [ "$choice" = "7" ]; then
 elif [ "$choice" = "8" ]; then
     if [ -f "$PAYLOAD_DIR/cr3nroll.sh" ]; then
 			# we use Cr3nroll in the chroot because its written in bash!
-			CHPAYLOAD_DIR="${PAYLOAD_DIR#/usb}"
 			cleanup() {
     			umount "$MNT" 2>/dev/null
     			rm -rf "$MNT"
@@ -88,7 +87,7 @@ elif [ "$choice" = "8" ]; then
 			# prepare chroot
 			trap cleanup EXIT INT TERM
 			mkdir -p "$MNT" || exit 1
-			mount -t tmpfs tmpfs "$MNT" || exit 1
+			mount -t tmpfs -o size=512M tmpfs "$MNT" || exit 1
 			cp -a "$MNTRO/." "$MNT/" || exit 1
 			mkdir -p "$MNT/bin" "$MNT/dev"
 			mount --bind /dev "$MNT/dev" 2>/dev/null
@@ -96,7 +95,7 @@ elif [ "$choice" = "8" ]; then
 			chmod +x "$MNT/bin/busybox"
 			chroot "$MNT" /bin/busybox --install -s /bin
 			# run cr3nroll in chroot
-			chroot "$MNT" /bin/sh -c 'PATH=/bin:/usr/bin;export PATH;TERM=xterm;export TERM;exec /bin/bash "$1/cr3nroll.sh"' sh "$CHPAYLOAD_DIR"
+			chroot "$MNT" /bin/sh -c 'PATH=/bin:/usr/bin;export PATH;TERM=xterm;export TERM;exec /bin/bash "/usr/sbin/scripts/cr3nroll.sh"'
 		fi
 		sh /usb/usr/sbin/payloads_menu.sh
 		sleep infinity
