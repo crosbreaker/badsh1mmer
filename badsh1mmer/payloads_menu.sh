@@ -79,8 +79,7 @@ elif [ "$choice" = "8" ]; then
     if [ -f "$PAYLOAD_DIR/cr3nroll.sh" ]; then # STOLEN FROM RECOMM3R!!!
 			# we use Cr3nroll in the chroot because its written in bash
 			CHPAYLOAD_DIR="${PAYLOAD_DIR#/usb}"
-			chroot "/usb/" /bin/bash -c "export TERM=xterm; bash $CHPAYLOAD_DIR/cr3nroll.sh" < "$TTY" > "$TTY" 2>&1
-			
+			chroot /usb /bin/bash -c 'export PATH=/bin:/usr/bin;export TERM=xterm;bash "$1/cr3nroll.sh"' bash "$CHPAYLOAD_DIR" 2>&1
 			echo ""
 			echo "Press enter to return to menu..."
 			read -p "" e < "$TTY"
