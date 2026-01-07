@@ -5,13 +5,14 @@ SCRIPT_DIR=${SCRIPT_DIR:-"."}
 
 set -eE
 
-SCRIPT_DATE="[2025-08-26]"
-SCRIPT_BUILD="1.1.4"
+SCRIPT_DATE="[2026-01-07]"
+SCRIPT_BUILD="1.1.5"
 PAYLOAD_DIR=/usb/usr/sbin/scripts
 RECOVERY_KEY_LIST="$PAYLOAD_DIR"/short_recovery_keys.txt
 
-MNT=
-TMPFILE=
+MNTRO=/usb
+MNT=/tmp/usb-overlay
+TMPFILE=/tmp/script.$$
 
 fail() {
 	printf "%b\n" "$*" >&2
@@ -76,13 +77,26 @@ elif [ "$choice" = "7" ]; then
         sh /usb/usr/sbin/payloads_menu.sh
         sleep infinity
 elif [ "$choice" = "8" ]; then
-    if [ -f "$PAYLOAD_DIR/cr3nroll.sh" ]; then # STOLEN FROM RECOMM3R!!!
-			# we use Cr3nroll in the chroot because its written in bash
+    if [ -f "$PAYLOAD_DIR/cr3nroll.sh" ]; then
+			# we use Cr3nroll in the chroot because its written in bash!
 			CHPAYLOAD_DIR="${PAYLOAD_DIR#/usb}"
-			chroot /usb /bin/bash -c 'export PATH=/bin:/usr/bin;export TERM=xterm;bash "$1/cr3nroll.sh"' bash "$CHPAYLOAD_DIR" 2>&1
-			echo ""
-			echo "Press enter to return to menu..."
-			read -p "" e < "$TTY"
+			cleanup() {
+    			umount "$MNT" 2>/dev/null
+    			rm -rf "$MNT"
+    			rm -f "$TMPFILE"
+			}
+			# prepare chroot
+			trap cleanup EXIT INT TERM
+			mkdir -p "$MNT" || exit 1
+			mount -t tmpfs tmpfs "$MNT" || exit 1
+			cp -a "$MNTRO/." "$MNT/" || exit 1
+			mkdir -p "$MNT/bin" "$MNT/dev"
+			mount --bind /dev "$MNT/dev" 2>/dev/null
+			cp /bin/busybox "$MNT/bin/busybox" || exit 1
+			chmod +x "$MNT/bin/busybox"
+			chroot "$MNT" /bin/busybox --install -s /bin
+			# run cr3nroll in chroot
+			chroot "$MNT" /bin/sh -c 'PATH=/bin:/usr/bin;export PATH;TERM=xterm;export TERM;exec /bin/bash "$1/cr3nroll.sh"' sh "$CHPAYLOAD_DIR"
 		fi
 		sh /usb/usr/sbin/payloads_menu.sh
 		sleep infinity
