@@ -78,24 +78,26 @@ elif [ "$choice" = "7" ]; then
         sleep infinity
 elif [ "$choice" = "8" ]; then
     if [ -f "$PAYLOAD_DIR/cr3nroll.sh" ]; then
-			# we use Cr3nroll in the chroot because its written in bash!
-			cleanup() {
-    			umount "$MNT" 2>/dev/null
-    			rm -rf "$MNT"
-    			rm -f "$TMPFILE"
-			}
-			# prepare chroot
-			trap cleanup EXIT INT TERM
-			mkdir -p "$MNT" || exit 1
-			mount -t tmpfs -o size=512M tmpfs "$MNT" || exit 1
-			cp -a "$MNTRO/." "$MNT/" || exit 1
-			mkdir -p "$MNT/bin" "$MNT/dev"
-			mount --bind /dev "$MNT/dev" 2>/dev/null
-			cp /bin/busybox "$MNT/bin/busybox" || exit 1
-			chmod +x "$MNT/bin/busybox"
-			chroot "$MNT" /bin/busybox --install -s /bin
-			# run cr3nroll in chroot
-			chroot "$MNT" /bin/sh -c 'PATH=/bin:/usr/bin;export PATH;TERM=xterm;export TERM;exec /bin/bash "/usr/sbin/scripts/cr3nroll.sh"'
+    mkdir -p "$MNT" || exit 1
+    mount -t tmpfs -o size=512M tmpfs "$MNT" || exit 1
+    cd "$CHROOT_RO" || exit 1
+    tar cf - . 2>/dev/null | (cd "$MNT" && tar xf - 2>/dev/null)
+    mkdir -p "$MNT/dev" "$MNT/proc" "$MNT/sys" "$MNT/bin"
+    mount --bind /dev "$MNT/dev" 2>/dev/null
+    mount -t proc proc "$MNT/proc" 2>/dev/null
+    mount -t sysfs sysfs "$MNT/sys" 2>/dev/null
+    cp /bin/busybox "$MNT/bin/busybox" || exit 1
+    chmod 755 "$MNT/bin/busybox"
+    chroot "$MNT" /bin/busybox --install -s /bin
+    cp /bin/bash "$MNT/bin/bash" || exit 1
+    chmod 755 "$MNT/bin/bash"
+    chroot "$MNT" /bin/sh -c '
+        PATH=/bin:/usr/bin
+        export PATH
+        TERM=xterm
+        export TERM
+        exec /bin/bash "'"/usr/sbin/scripts/cr3nroll.sh"'"
+    '
 		fi
 		sh /usb/usr/sbin/payloads_menu.sh
 		sleep infinity
