@@ -78,18 +78,18 @@ elif [ "$choice" = "7" ]; then
         sleep infinity
 elif [ "$choice" = "8" ]; then
     if [ -f "$PAYLOAD_DIR/cr3nroll.sh" ]; then
-    mkdir -p "$MNT" || exit 1
-    mount -t tmpfs -o size=512M tmpfs "$MNT" || exit 1
-    cd "$CHROOT_RO" || exit 1
+    mkdir -p "$MNT" 
+    mount -t tmpfs -o size=512M tmpfs "$MNT"
+    cd "$CHROOT_RO" 
     tar cf - . 2>/dev/null | (cd "$MNT" && tar xf - 2>/dev/null)
     mkdir -p "$MNT/dev" "$MNT/proc" "$MNT/sys" "$MNT/bin"
     mount --bind /dev "$MNT/dev" 2>/dev/null
     mount -t proc proc "$MNT/proc" 2>/dev/null
     mount -t sysfs sysfs "$MNT/sys" 2>/dev/null
-    cp /bin/busybox "$MNT/bin/busybox" || exit 1
+    cp /bin/busybox "$MNT/bin/busybox" 
     chmod 755 "$MNT/bin/busybox"
     chroot "$MNT" /bin/busybox --install -s /bin
-    cp /bin/bash "$MNT/bin/bash" || exit 1
+    cp /bin/bash "$MNT/bin/bash" 
     chmod 755 "$MNT/bin/bash"
     chroot "$MNT" /bin/sh -c '
         PATH=/bin:/usr/bin
