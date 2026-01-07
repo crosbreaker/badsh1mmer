@@ -684,6 +684,7 @@ case "$TYPE" in
 		src_dir="$SCRIPT_DIR"/badsh1mmer
 		[ -d "$src_dir" ] || fail "Could not find unverified payload '$src_dir'"
 		src_busybox="$SCRIPT_DIR"/busybox/"$TARGET_ARCH"/busybox
+		src_bash="$SCRIPT_DIR"/busybox/"$TARGET_ARCH"/bash # dont ask why bash is in the busybox dir
 		[ -f "$src_busybox" ] || fail "Could not find busybox '$src_busybox'"
 		suppress mkfs "$TARGET_ROOTA_PAYLOAD"
 		MNT_ROOT=$(mktemp -d)
@@ -691,6 +692,7 @@ case "$TYPE" in
 
 		mkdir -p "$MNT_ROOT"/usr/sbin "$MNT_ROOT"/bin "$MNT_ROOT"/dev "$MNT_ROOT"/proc "$MNT_ROOT"/run "$MNT_ROOT"/sys "$MNT_ROOT"/tmp "$MNT_ROOT"/var
 		cp "$src_busybox" "$MNT_ROOT"/bin
+		cp "$src_bash" "$MNT_ROOT"/bin
 		cp -R "$src_dir"/* "$MNT_ROOT"/usr/sbin
 		chmod +x "$MNT_ROOT"/bin/busybox "$MNT_ROOT"/usr/sbin/chromeos-recovery
 
