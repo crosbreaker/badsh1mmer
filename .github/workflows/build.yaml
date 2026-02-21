@@ -9,7 +9,7 @@ jobs:
     
     strategy: 
       matrix:
-        board: [brya, nissa, dedede, corsola, asurada, atlas, cherry, drallion, geralt, nocturne, rammus, rex, sarien, skyrim, staryu, trogdor, eve, hana]
+        board: [brya, nissa, dedede, corsola, asurada, atlas, cherry, drallion, geralt, nocturne, rammus, rex, sarien, skyrim, staryu, trogdor, eve, hana, octopus]
 
     runs-on: ubuntu-latest
     steps:
@@ -32,10 +32,11 @@ jobs:
           set -x
           sudo apt-get install -y pv
           sudo QUIET=1 bash buildfull_badsh1mmer.sh "${{ matrix.board }}"
-
-      - name: create release
-        uses: ading2210/gh-large-releases@v1
-        if: startsWith(github.ref, 'refs/tags/')
+          zip badsh1mmer-"${{ matrix.board }}".zip badsh1mmer-"${{ matrix.board }}".bin
+        - name: Upload to existing GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          files: badsh1mmer-*.bin
-          make_latest: true
+          tag_name: latest
+          files: badsh1mmer-"${{ matrix.board }}".zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
