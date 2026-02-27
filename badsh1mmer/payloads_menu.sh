@@ -33,6 +33,7 @@ echo "(4) MrChromebox Firmware Utility"
 echo "(5) Touch .developer_mode (skip 5 minute delay)"
 echo "(6) Daub / Originally found by Hannah, script by mariah carey"
 echo "(7) Quicksilver / Unenrollment up to kernver 6, By emerwyi. Script by mariah carey"
+echo "(8) 2icksilver / Unenrollment up to kernver 7, By emerwyi. Script by con
 echo "(s) Shell"
 echo "(c) Credits"
 echo "(w) whale payload"
@@ -71,6 +72,10 @@ elif [ "$choice" = "badrecovery" ]; then # this is just for debugging.
         sleep infinity
 elif [ "$choice" = "7" ]; then
     /bin/sh "$PAYLOAD_DIR/quicksilver.sh"
+        sh /usb/usr/sbin/payloads_menu.sh
+        sleep infinity
+elif [ "$choice" = "8" ]; then
+    	/bin/sh "$PAYLOAD_DIR/2icksilver.sh"
         sh /usb/usr/sbin/payloads_menu.sh
         sleep infinity
 elif [ "$choice" = "s" ]; then
