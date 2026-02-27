@@ -49,7 +49,8 @@ missing_deps=$(check_deps partx sgdisk mkfs.ext4 cryptsetup lvm numfmt tar jq cu
 findimage
 
 echo "Downloading $recoveryver recovery image"
-wget --show-progress "$FINAL_URL" -O recovery.zip || fail "Failed to download recovery image"
+
+wget "$FINAL_URL" -O recovery.zip >/dev/null 2>&1 || fail "Failed to download recovery image"
 
 echo "Extracting $recoveryver recovery image"
 unzip recovery.zip || fail "Failed to unzip recovery image"
