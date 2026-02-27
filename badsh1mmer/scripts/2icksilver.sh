@@ -48,22 +48,26 @@ get_booted_rootnum() {
 }
 
 wipeandmountstate(){
-  mkdir -p /localroot 
+  	mkdir -p /localroot 
 	mount ${intdis_prefix}$(get_booted_rootnum) /localroot -o ro
-	(
-		/sbin/vgchange -ay
-    volgroup=$(/sbin/vgscan | grep "Found volume group" | awk '{print $4}' | tr -d '"')
-		if [ -b "/dev/$volgroup/unencrypted" ]; then
-			echo "found volume group: $volgroup"
-			mkdir "$stateful_mount"
-			/sbin/mkfs.ext4 -F /dev/$volgroup/unencrypted
+	# yes i know below is really inefficient, but the other way isnt work and i cant understand why
+	sync # call just in case?
+	mount --bind /dev /localroot/dev
+	mount --bind /proc /localroot/proc
+	mount --bind /sys /localroot/sys
+	mount --bind /run /localroot/run
+	chroot /localroot vgchange -ay
+    volgroup=$(chroot /localroot vgscan | grep "Found volume group" | awk '{print $4}' | tr -d '"')
+	if [ -b "/dev/$volgroup/unencrypted" ]; then
+		echo "found volume group: $volgroup"
+		mkdir "$stateful_mount"
+		chroot /localroot mkfs.ext4 -F /dev/$volgroup/unencrypted
     	mount /dev/$volgroup/unencrypted "$stateful_mount"
-		else
-			echo "lvm fail, falling back on p1"
-			/sbin/mkfs.ext4 -F "$intdis_prefix"1 || fail "no stateful could be found/wiped"
-      mount "$intdis_prefix"1 "$stateful_mount"
-		fi
-	) | chroot /localroot
+	else
+		echo "lvm fail, falling back on p1"
+		chroot /localroot mkfs.ext4 -F "$intdis_prefix"1 || fail "no stateful could be found/wiped"
+    	mount "$intdis_prefix"1 "$stateful_mount"
+	fi
 }
 
 checkcurrentstate(){
