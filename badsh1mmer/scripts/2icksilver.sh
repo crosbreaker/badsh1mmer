@@ -50,21 +50,17 @@ get_booted_rootnum() {
 wipeandmountstate(){
   mkdir -p /localroot 
 	mount ${intdis_prefix}$(get_booted_rootnum) /localroot -o ro
-	for rootdir in dev proc run sys; do
-		mount --bindable "${rootdir}" /localroot/"${rootdir}"
-	done  
 	(
-		export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/sbin"
-		vgchange -ay
-    volgroup=$(vgscan | grep "Found volume group" | awk '{print $4}' | tr -d '"')
+		/sbin/vgchange -ay
+    volgroup=$(/sbin/vgscan | grep "Found volume group" | awk '{print $4}' | tr -d '"')
 		if [ -b "/dev/$volgroup/unencrypted" ]; then
 			echo "found volume group: $volgroup"
 			mkdir "$stateful_mount"
-			mkfs.ext4 -F /dev/$volgroup/unencrypted
+			/sbin/mkfs.ext4 -F /dev/$volgroup/unencrypted
     	mount /dev/$volgroup/unencrypted "$stateful_mount"
 		else
 			echo "lvm fail, falling back on p1"
-			mkfs.ext4 -F "$intdis_prefix"1 || fail "no stateful could be found/wiped"
+			/sbin/mkfs.ext4 -F "$intdis_prefix"1 || fail "no stateful could be found/wiped"
       mount "$intdis_prefix"1 "$stateful_mount"
 		fi
 	) | chroot /localroot
@@ -121,8 +117,9 @@ main(){
   clear
   echo "2icksilver, root file write > unpatch quicksilver > unenrollment"
 	echo "Exploit by emery, script by con"
-  checkcurrentstate
   mkdir -p /run/vpd/
+	vpd -i RW_VPD -l > /run/vpd/rw.txt
+	checkcurrentstate
 }
 
 main
