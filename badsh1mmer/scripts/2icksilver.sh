@@ -49,7 +49,7 @@ get_booted_rootnum() {
 
 wipeandmountstate(){
   mkdir -p /localroot 
-	mount ${intdis}${intdis_prefix}$(get_booted_rootnum) /localroot -o ro
+	mount ${intdis_prefix}$(get_booted_rootnum) /localroot -o ro
 	for rootdir in dev proc run sys; do
 		mount --bindable "${rootdir}" /localroot/"${rootdir}"
 	done  
@@ -122,6 +122,7 @@ main(){
   echo "2icksilver, root file write > unpatch quicksilver > unenrollment"
 	echo "Exploit by emery, script by con"
   checkcurrentstate
+  mkdir -p /run/vpd/
 }
 
 main
