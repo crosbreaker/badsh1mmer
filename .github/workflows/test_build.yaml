@@ -1,0 +1,42 @@
+# Thanks to https://github.com/ading2210/badrecovery for the orginal badrecovery workflow file
+on: workflow_dispatch
+name: build
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    
+    strategy: 
+      matrix:
+        board: [brya]
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 32768
+          swap-size-mb: 64
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+
+      - name: download repo
+        uses: actions/checkout@v4
+      
+      - name: run build
+        run: |
+          set -x
+          sudo apt-get install -y pv
+          sudo QUIET=1 bash buildfull_badsh1mmer.sh "${{ matrix.board }}"
+          zip badsh1mmer-"${{ matrix.board }}".zip badsh1mmer-"${{ matrix.board }}".bin
+      - name: Upload to existing GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          files: badsh1mmer-${{ matrix.board }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
