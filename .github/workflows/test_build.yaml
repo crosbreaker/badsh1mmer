@@ -9,7 +9,7 @@ jobs:
     
     strategy: 
       matrix:
-        board: [brya]
+        board: [nissa]
 
     runs-on: ubuntu-latest
     steps:
