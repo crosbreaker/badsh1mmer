@@ -89,6 +89,8 @@ part1(){
 }
 
 part2(){
+	rm -rf /metadata/*
+	sync
     printf "CoABCiN1bmVuY3J5cHRlZC8uLi8uLi8uLi9ydW4vdnBkL3JvLnR4dBBVGlcSVXJlX2Vucm9sbG1lbnRfa2V5PSIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwImA=" | tee /metadata/preseeder.proto
     chattr +i /metadata/preseeder.proto 
     sync
