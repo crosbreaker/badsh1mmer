@@ -56,16 +56,16 @@ wipeandmountstate(){
 	mount --bind /proc /localroot/proc
 	mount --bind /sys /localroot/sys
 	mount --bind /run /localroot/run
-	chroot /localroot vgchange -ay
-    volgroup=$(chroot /localroot vgscan | grep "Found volume group" | awk '{print $4}' | tr -d '"')
+	chroot /localroot /sbin/vgchange -ay
+    volgroup=$(chroot /localroot /sbin/vgscan | grep "Found volume group" | awk '{print $4}' | tr -d '"')
 	if [ -b "/dev/$volgroup/unencrypted" ]; then
 		echo "found volume group: $volgroup"
 		mkdir "$stateful_mount"
-		chroot /localroot mkfs.ext4 -F /dev/$volgroup/unencrypted
+		chroot /localroot /sbin/mkfs.ext4 -F /dev/$volgroup/unencrypted
     	mount /dev/$volgroup/unencrypted "$stateful_mount"
 	else
 		echo "lvm fail, falling back on p1"
-		chroot /localroot mkfs.ext4 -F "$intdis_prefix"1 || fail "no stateful could be found/wiped"
+		chroot /localroot /sbin/mkfs.ext4 -F "$intdis_prefix"1 || fail "no stateful could be found/wiped"
     	mount "$intdis_prefix"1 "$stateful_mount"
 	fi
 }
