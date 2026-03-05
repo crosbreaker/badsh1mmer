@@ -1,5 +1,5 @@
 #!/bin/sh
-
+#https://github.com/BinBashBanana/badrecovery
 # spinner is always the 2nd /bin/sh
 spinner_pid=$(pgrep /bin/sh | head -n 2 | tail -n 1)
 kill -9 "$spinner_pid"
@@ -33,8 +33,8 @@ echo "Creating RW /tmp"
 mount -t tmpfs -o rw,exec,size=50M tmpfs /tmp
 echo "...$?"
 
-# These shouldn't be needed, ill set block_devmode to 0 in RW_VPD just to be safe tho.
-vpd -i RW_VPD -s block_devmode=0 >/dev/null 2>&1
+# These shouldn't are not needed
+# vpd -i RW_VPD -s block_devmode=0 >/dev/null 2>&1
 # echo "Modifying VPD (check_enrollment=0 block_devmode=0)"
 # echo "Note: the vpd utility acts really weird in recovery, but it actually writes the values ok."
 # vpd -i RW_VPD -s check_enrollment=0 -s block_devmode=0 >/dev/null 2>&1

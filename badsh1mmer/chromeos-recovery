@@ -1,5 +1,5 @@
 #!/bin/busybox sh
-
+#https://github.com/BinBashBanana/badrecovery
 cd /
 /bin/busybox cp /usr/sbin/payload.sh /dev/payload.sh
 /bin/busybox chmod +x /dev/payload.sh

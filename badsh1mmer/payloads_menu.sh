@@ -5,8 +5,8 @@ SCRIPT_DIR=${SCRIPT_DIR:-"."}
 
 set -eE
 
-SCRIPT_DATE="[2025-08-26]"
-SCRIPT_BUILD="1.1.4"
+SCRIPT_DATE="[2026-03-2026]"
+SCRIPT_BUILD="1.2"
 PAYLOAD_DIR=/usb/usr/sbin/scripts
 RECOVERY_KEY_LIST="$PAYLOAD_DIR"/short_recovery_keys.txt
 
@@ -31,9 +31,9 @@ echo "(2) Caliginosity / Revert all changes made by sh1mmer or badsh1mmer (reenr
 echo "(3) Icarus / unenrollment up to r129, by writable"
 echo "(4) MrChromebox Firmware Utility"
 echo "(5) Touch .developer_mode (skip 5 minute delay)"
-echo "(6) Daub / Originally found by Hannah, script by mariah carey"
-echo "(7) Quicksilver / Unenrollment up to kernver 6, By emerwyi. Script by mariah carey"
-echo "(8) 2icksilver / Unenrollment up to kernver 7, By emerwyi. Script by con"
+echo "(6) Daub / Originally found by Hannah, script by con/mariah carey"
+echo "(7) Quicksilver / Unenrollment up to kernver 6, by emerwyi. Script by mariah carey"
+echo "(8) protowrite / Unenrollment up to kernver 7, by emerwyi. Script by con"
 echo "(s) Shell"
 echo "(c) Credits"
 echo "(w) whale payload"
@@ -75,7 +75,7 @@ elif [ "$choice" = "7" ]; then
         sh /usb/usr/sbin/payloads_menu.sh
         sleep infinity
 elif [ "$choice" = "8" ]; then
-    	/bin/sh "$PAYLOAD_DIR/2icksilver.sh"
+    	/bin/sh "$PAYLOAD_DIR/protowrite.sh"
         sh /usb/usr/sbin/payloads_menu.sh
         sleep infinity
 elif [ "$choice" = "s" ]; then
@@ -85,13 +85,13 @@ elif [ "$choice" = "s" ]; then
 elif [ "$choice" = "c" ]; then
     echo "-----BadSH1mmer-----"
     echo "OlyB: creating BadRecovery, and Br0ker, + helping with scripts and some other stuff too"
-    echo "HarryJarry1: creating BadBr0ker, finding the vpd vulnerability. Also a ton of random fixes in badsh1mmer"
+    echo "HarryJarry1: Active maintainer"
     echo "Lxrd: Sh1ttyOOBE, Sh1ttyExec"
 	echo "crossjbly/xz8f: Creating menu, fixing stuff"
  	echo "fanqyxl: hosting (hopefully)"
 	echo "Hannah: finding DAUB"
 	echo "Mariah carey: making the daub.sh script"
-	echo "emerwyi: quicksilver"
+	echo "emerwyi: quicksilver, protowrite"
 	# codenerd you're not fun :rage: bring back fanxql injection!!!
 	# echo "fanxql: being tuff, fanxql injection"
    	echo "-------------------"
@@ -109,7 +109,7 @@ elif [ "$choice" = "e" ]; then
  	sleep infinity
 elif [ "$choice" = "w" ]; then
 	cat "$PAYLOAD_DIR/whale.txt"
- 	sleep infinity
+ 	/bin/sh
 else
     echo "Invalid choice"
 	echo "entering shell..."

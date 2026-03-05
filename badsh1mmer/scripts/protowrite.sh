@@ -112,7 +112,7 @@ main(){
 		intdis_prefix="$intdis"
 	fi
   clear
-  echo "2icksilver, root file write > unpatch quicksilver > unenrollment"
+  echo "protowrite: root file write > unenrollment"
   echo "Exploit by emery, script by con"
 	checkcurrentstate
 }
