@@ -1,82 +1,108 @@
-#!/bin/sh
-# written mostly by HarryJarry1
-# get_stateful take from https://github.com/applefritter-inc/BadApple-icarus
+ #!/bin/sh
 fail(){
 	printf "$1\n"
-	printf "please attach error logs and report to crosbreaker on discord or github...\n"
-	sleep infinity # so people have time to photograph/record error outputs in reports
+	printf "exiting...\n"
+	exit
 }
 main(){
-echo   
-get_internal
-mkdir -p /localroot /stateful
-mount "$intdis$intdis_prefix$(get_booted_rootnum)" /localroot -o ro
-for rootdir in dev proc run sys; do
-	mount --bindable "${rootdir}" /localroot/"${rootdir}"
-done
-chroot /localroot cgpt add "$intdis" -i $(get_booted_kernnum) -P 10 -T 5 -S 1
-    (
-        echo "d"
-        echo "$(opposite_num $(get_booted_kernnum))"
-        echo "d"
-        echo "$(opposite_num $(get_booted_rootnum))"
-        echo "w" 
-    ) | chroot /localroot /sbin/fdisk "$intdis"
-crossystem disable_dev_request=1
-if mount "$intdis$intdis_prefix"1 /stateful; then
-	umount /stateful
-	chroot /localroot /sbin/mkfs.ext4 -F "$intdis$intdis_prefix"1
-else
-	wipelvm || fail "could not find and wipe ext4 or lvm stateful, does it exist?"
-fi
-for rootdir in dev proc run sys; do
-  umount /localroot/"${rootdir}"
-done
-umount /localroot
-rm -rf /localroot /stateful
-echo "Done!  Run reboot -f to reboot."
+    . /usr/sbin/write_gpt.sh
+    load_base_vars
+	intdis=$(get_fixed_dst_drive)
+	if echo "$intdis" | grep -q '[0-9]$'; then
+		intdis_prefix="$intdis"p
+	else
+		intdis_prefix="$intdis"
+	fi
+	mkdir -p /localroot /stateful
+	mount "$intdis_prefix$(get_booted_rootnum)" /localroot -o ro
+	for rootdir in dev proc run sys; do
+		mount --bindable "${rootdir}" /localroot/"${rootdir}"
+	done
+	clear
+	menu
+    echo
+    read -p "Would you like to disable developer mode (skips beep) (Y/N)" -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+	    crossystem disable_dev_request=1
+    fi
+    echo
+    echo
+    echo "Done! Run reboot -f to reboot."
 }
-wipelvm(){
-    chroot /localroot /sbin/vgchange -ay #active all volume groups
+menu() {
+	echo "DAUB by crosbreaker, orginally found by Hannah. Script by Con & Mariah"
+	echo "https://crosbreaker.dev"
+	echo
+	echo "(1) Fix DAUB bootlooping"
+	echo "(2) Setup DAUB"
+	echo "(3) Exit Utility"
+	# add undoing daub soon
+	read -p "" -n 1 -r
+	echo
+	if [[ $REPLY =~ ^[1]$ ]]; then
+		echo "Fixing DAUB bootloop via wiping stateful"
+		wipestate
+	elif [[ $REPLY =~ ^[2]$ ]]; then
+		echo "Setting up DAUB..."
+		wipestate
+		chroot /localroot /sbin/cgpt add "$intdis" -i $(get_booted_kernnum) -P 10 -T 5 -S 1
+    		(
+        		echo "d"
+        		echo "$(opposite_num $(get_booted_kernnum))"
+        		echo "d"
+        		echo "$(opposite_num $(get_booted_rootnum))"
+        		echo "w" 
+    		) | chroot /localroot /sbin/fdisk "$intdis"
+		for rootdir in dev proc run sys; do
+			umount /localroot/"${rootdir}"
+		done
+		umount /localroot
+		rmdir /localroot
+	elif [[ $REPLY =~ ^[3]$ ]]; then
+		exit 0
+	else
+	    clear
+		echo "invalid option"
+		menu
+	fi
+}
+get_fixed_dst_drive() {
+	local dev
+	if [ -z "${DEFAULT_ROOTDEV}" ]; then
+		for dev in /sys/block/sd* /sys/block/mmcblk*; do
+			if [ ! -d "${dev}" ] || [ "$(cat "${dev}/removable")" = 1 ] || [ "$(cat "${dev}/size")" -lt 2097152 ]; then
+				continue
+			fi
+			if [ -f "${dev}/device/type" ]; then
+				case "$(cat "${dev}/device/type")" in
+				SD*)
+					continue;
+					;;
+				esac
+			fi
+			DEFAULT_ROOTDEV="{$dev}"
+		done
+	fi
+	if [ -z "${DEFAULT_ROOTDEV}" ]; then
+		dev=""
+	else
+		dev="/dev/$(basename ${DEFAULT_ROOTDEV})"
+		if [ ! -b "${dev}" ]; then
+			dev=""
+		fi
+	fi
+	echo "${dev}"
+}
+wipestate(){
+    chroot /localroot /sbin/vgchange -ay #activate all volume groups
     volgroup=$(chroot /localroot /sbin/vgscan | grep "Found volume group" | awk '{print $4}' | tr -d '"')
-    echo "found volume group: $volgroup"
-    if mount "/dev/$volgroup/unencrypted" /stateful; then
-			rm -rf /stateful/*
-			umount /stateful
+	if [ -b "/dev/$volgroup/unencrypted" ]; then
+		echo "found volume group: $volgroup"
+		chroot /localroot /sbin/mkfs.ext4 -F /dev/$volgroup/unencrypted
+	else
+		echo "lvm fail, falling back on p1"
+		chroot /localroot /sbin/mkfs.ext4 -F "$intdis_prefix"1
 	fi
-}
-get_internal() {
-	# get_largest_cros_blockdev does not work in BadApple.
-	local ROOTDEV_LIST=$(cgpt find -t rootfs) # thanks stella
-	if [ -z "$ROOTDEV_LIST" ]; then
-		fail "could not parse for rootdev devices. this should not have happened."
-	fi
-	local device_type=$(echo "$ROOTDEV_LIST" | grep -oE 'blk0|blk1||nvme|sda' | head -n 1)
-	case $device_type in
-	"blk0")
-		intdis=/dev/mmcblk0
-  		intdis_prefix="p"
-		break
-		;;
-	"blk1")
-		intdis=/dev/mmcblk1
-			intdis_prefix="p"
-		break
-		;;
-	"nvme")
-		intdis=/dev/nvme0
-  		intdis_prefix="n"
-		break
-		;;
-	"sda")
-		intdis=/dev/sda
-  		intdis_prefix=""
-		break
-		;;
-	*)
-		fail "an unknown error occured. this should not have happened."
-		;;
-	esac
 }
 get_booted_kernnum() {
     if $(expr $(cgpt show -n "$intdis" -i 2 -P) > $(cgpt show -n "$intdis" -i 4 -P)); then
@@ -101,8 +127,4 @@ opposite_num() {
         return 1
     fi
 }
-read -p "are you sure you want to run daub?  (y/n) " -n 1 -r
-echo   
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    main
-fi
+main
