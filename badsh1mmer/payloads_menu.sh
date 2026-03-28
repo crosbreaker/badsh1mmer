@@ -82,7 +82,7 @@ elif [ "$choice" = "8" ]; then
 elif [ "$choice" = "9" ]; then
 		vpd -i RW_VPD -l --no-cache
 		vpd -l --no-cache
-		sh /usb/usr/sbin/payloads_menu.sh
+		/bin/sh
     	sleep infinity
 elif [ "$choice" = "s" ]; then
 	/bin/sh #shut up! its fixed now :whale:
