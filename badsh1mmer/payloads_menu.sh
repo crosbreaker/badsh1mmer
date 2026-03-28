@@ -88,7 +88,7 @@ elif [ "$choice" = "9" ]; then
 		flashrom -p internal --wp-status >> /mnt/empty/devinfo.txt
 		vpd -i RW_VPD -l --no-cache >> /mnt/empty/devinfo.txt
 		vpd -l --no-cache >> /mnt/empty/devinfo.txt
-		umount /dev/sda1
+		umount /mnt/empty
 		sync
 		echo "These are also stored to the USB drive. You may view them in devinfo.txt"
 		/bin/sh
