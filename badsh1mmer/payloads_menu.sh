@@ -34,6 +34,7 @@ echo "(5) Touch .developer_mode (skip 5 minute delay)"
 echo "(6) Daub / Originally found by Hannah, script by con/mariah carey"
 echo "(7) Quicksilver / Unenrollment up to kernver 6, by emerwyi. Script by mariah carey"
 echo "(8) protowrite / Unenrollment up to kernver 7, by emerwyi. Script by con"
+echo "(9) print device information (stable device secret, etc)"
 echo "(s) Shell"
 echo "(c) Credits"
 echo "(w) whale payload"
@@ -78,6 +79,11 @@ elif [ "$choice" = "8" ]; then
     	/bin/sh "$PAYLOAD_DIR/protowrite.sh"
         sh /usb/usr/sbin/payloads_menu.sh
         sleep infinity
+elif [ "$choice" = "9" ]; then
+		vpd -i RW_VPD -l --no-cache
+		vpd -l --no-cache
+		sh /usb/usr/sbin/payloads_menu.sh
+    	sleep infinity
 elif [ "$choice" = "s" ]; then
 	/bin/sh #shut up! its fixed now :whale:
 	sh /usb/usr/sbin/payloads_menu.sh
