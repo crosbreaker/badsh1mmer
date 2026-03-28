@@ -34,7 +34,7 @@ echo "(5) Touch .developer_mode (skip 5 minute delay)"
 echo "(6) Daub / Originally found by Hannah, script by con/mariah carey"
 echo "(7) Quicksilver / Unenrollment up to kernver 6, by emerwyi. Script by mariah carey"
 echo "(8) protowrite / Unenrollment up to kernver 7, by emerwyi. Script by con"
-echo "(9) print device information (stable device secret, etc)"
+echo "(9) print device information to screen/to USB (stable device secret, etc)"
 echo "(s) Shell"
 echo "(c) Credits"
 echo "(w) whale payload"
@@ -82,6 +82,15 @@ elif [ "$choice" = "8" ]; then
 elif [ "$choice" = "9" ]; then
 		vpd -i RW_VPD -l --no-cache
 		vpd -l --no-cache
+		mkfs.vfat /dev/sda1
+		mount /dev/sda1 /mnt/empty
+		crossystem --all > /mnt/empty/devinfo.txt
+		flashrom -p internal --wp-status >> /mnt/empty/devinfo.txt
+		vpd -i RW_VPD -l --no-cache >> /mnt/empty/devinfo.txt
+		vpd -l --no-cache >> /mnt/empty/devinfo.txt
+		umount /dev/sda1
+		sync
+		echo "These are also stored to the USB drive. You may view them in devinfo.txt"
 		/bin/sh
     	sleep infinity
 elif [ "$choice" = "s" ]; then
