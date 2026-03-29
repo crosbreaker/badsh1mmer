@@ -82,8 +82,10 @@ elif [ "$choice" = "8" ]; then
 elif [ "$choice" = "9" ]; then
 		vpd -i RW_VPD -l --no-cache
 		vpd -l --no-cache
-		mkfs.vfat /dev/sda1
-		mount /dev/sda1 /mnt/empty
+		driveletter=$(mount | grep "/usb type ext4" | cut -c8)
+		echo "Debug: drive letter is $driveletter"
+		mkfs.vfat /dev/sd"$driveletter"1
+		mount /dev/sd"$driveletter"1 /mnt/empty
 		crossystem --all > /mnt/empty/devinfo.txt
 		flashrom -p internal --wp-status >> /mnt/empty/devinfo.txt
 		vpd -i RW_VPD -l --no-cache >> /mnt/empty/devinfo.txt
