@@ -44,4 +44,3 @@ Else, complete [sh1ttyexec](https://github.com/crosbreaker/sh1ttyexec)
 - [Crossjbly](https://github.com/crossjbly) - Creating menu, anything new that was added ontop of the original badbr0ker source code
 - [Lxrd](https://github.com/SPIRAME) - Sh1ttyOOBE
 - [codenerd87](https://github.com/codenerd87) - more board support on badbr0ker
-- fanqyxl - emotional support/file hosting 
