@@ -31,7 +31,7 @@ main(){
 }
 menu() {
 	echo "DAUB by crosbreaker, orginally found by Hannah. Script by Con & Mariah"
-	echo "https://crosbreaker.dev"
+	echo "https://crosbreaker.com"
 	echo
 	echo "(1) Fix DAUB bootlooping"
 	echo "(2) Setup DAUB"
