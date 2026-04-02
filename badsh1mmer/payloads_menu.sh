@@ -23,7 +23,7 @@ echo "IF8gICAgICAgICAgICAgICBfICAgICBfICAgICBfICAgICAgICAgICAgICAgICAgICAgICAgIC
 echo "" # fix display
 echo "$SCRIPT_DATE" # \n so it displays better
 echo "v$SCRIPT_BUILD"
-echo "https://crosbreaker.dev"
+echo "https://crosbreaker.com"
 echo "https://github.com/crosbreaker/BadSH1mmer"
 echo ""
 echo "(1) Br0ker / unenrollment up to kernver 5, By OlyB. Ported to BadRecovery by HarryJarry1"
