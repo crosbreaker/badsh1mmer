@@ -32,7 +32,6 @@ If below kv6, complete [sh1ttyOOBE](https://github.com/crosbreaker/sh1ttyOOBE), 
 Else, complete [sh1ttyexec](https://github.com/crosbreaker/sh1ttyexec)
 ### Prebuilts
 - [GitHub Release](https://github.com/crosbreaker/badsh1mmer/releases/latest)
-- [dl.crosbreaker.dev](https://dl.crosbreaker.dev/ChromeOS/modified-recovery/badsh1mmer)
 
 ### Licensing
 - [LICENSE](/LICENSE) - main license for all badsh1mmer code
