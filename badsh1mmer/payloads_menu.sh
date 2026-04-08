@@ -105,7 +105,7 @@ elif [ "$choice" = "c" ]; then
     echo "HarryJarry1: Active maintainer"
     echo "Lxrd: Sh1ttyOOBE, Sh1ttyExec"
 	echo "crossjbly/xz8f: Creating menu, fixing stuff"
- 	echo "fanqyxl: hosting (hopefully)"
+ 	echo "akane: hosting"
 	echo "Hannah: finding DAUB"
 	echo "Mariah carey: making the daub.sh script"
 	echo "emerwyi: quicksilver, protowrite"
