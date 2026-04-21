@@ -104,7 +104,7 @@ elif [ "$choice" = "c" ]; then
     echo "OlyB: creating BadRecovery, and Br0ker, + helping with scripts and some other stuff too"
     echo "HarryJarry1: Active maintainer"
     echo "Lxrd: Sh1ttyOOBE, Sh1ttyExec"
-	echo "crossjbly/xz8f: Creating menu, fixing stuff"
+	echo "xz8f: Creating menu, fixing stuff"
  	echo "akane: hosting"
 	echo "Hannah: finding DAUB"
 	echo "Mariah carey: making the daub.sh script"
