@@ -41,6 +41,6 @@ Else, complete [sh1ttyexec](https://github.com/crosbreaker/sh1ttyexec)
 ### Credits:
 - [HarryTarryJarry](https://github.com/HarryTarryJarry) - Badbr0ker, finding the VPD vulnerability
 - [BinBashBanana](https://github.com/binbashbanana) - original br0ker, badrecovery
-- [Crossjbly](https://github.com/crossjbly) - Creating menu, anything new that was added ontop of the original badbr0ker source code
+- [xz8f](https://github.com/xz8f) - Creating menu, anything new that was added ontop of the original badbr0ker source code
 - [Lxrd](https://github.com/SPIRAME) - Sh1ttyOOBE
 - [codenerd87](https://github.com/codenerd87) - more board support on badbr0ker
