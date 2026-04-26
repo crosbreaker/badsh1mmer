@@ -21,7 +21,7 @@ jobs:
         run: |
           set -x
           sudo apt-get install -y pv
-          sudo QUIET=1 bash buildfull_badsh1mmer.sh "${{ matrix.board }}" 137
+          sudo QUIET=1 bash buildfull_badsh1mmer.sh "${{ matrix.board }}"
           zip badsh1mmer-"${{ matrix.board }}".zip badsh1mmer-"${{ matrix.board }}".bin
       - name: Upload to existing GitHub Release
         uses: softprops/action-gh-release@v2
