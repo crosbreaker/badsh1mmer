@@ -8,7 +8,9 @@ else
   echo "Usage: sudo bash ./buildfull_badsh1mmer.sh <board>"
   exit 1
 fi
-
+if [ "$board" = "rauru" ]; then
+    recoveryver=137
+fi 
 fail() {
     printf "%b\n" "$1" >&2
     printf "error occurred\n" >&2
