@@ -150,7 +150,7 @@ detect_image_features() {
 	fi
 	log_info "Detected version: $IMAGE_VERSION"
 	if [ $IMAGE_VERSION -gt 129 ]; then
-		fail "Image version is too new. Please use an image for r129 or older."
+		echo "Image version is too new. Please use an image for r129 or older."
 	fi
 
 	TARGET_ARCH=x86
