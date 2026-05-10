@@ -5,7 +5,7 @@ SCRIPT_DIR=${SCRIPT_DIR:-"."}
 
 set -eE
 
-SCRIPT_DATE="[2026-05-06]"
+SCRIPT_DATE="[2026-05-09]"
 SCRIPT_BUILD="1.2"
 PAYLOAD_DIR=/usb/usr/sbin/scripts
 RECOVERY_KEY_LIST="$PAYLOAD_DIR"/short_recovery_keys.txt

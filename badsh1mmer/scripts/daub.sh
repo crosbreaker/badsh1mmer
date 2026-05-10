@@ -36,7 +36,8 @@ menu() {
 	# add undoing daub soon
 	read -p "" -n 1 -r
 	echo
-	if [ "$REPLY" =~ ^[1]$ ]; then
+	case "$REPLY" in
+	1)
 		echo "Setting up DAUB..."
 		wipestate
 		### credit to kxtz for fixing daub bootloop, this code is his
@@ -101,13 +102,16 @@ EOF
 		done
 		umount /localroot
 		rmdir /localroot
-	elif [ "$REPLY" =~ ^[2]$ ]; then
+		;;
+	2)
 		exit 0
-	else
+		;;
+	*)
 		clear
 		echo "invalid option"
 		menu
-	fi
+		;;
+	esac
 }
 get_fixed_dst_drive() {
 	local dev
