@@ -1,6 +1,6 @@
 # Thanks to https://github.com/ading2210/badrecovery for the orginal badrecovery workflow file
 on: workflow_dispatch
-name: build
+name: protowrite_test_build
 
 jobs:
   build:
@@ -9,7 +9,7 @@ jobs:
     
     strategy: 
       matrix:
-        board: [rauru]
+        board: [rauru, nissa, skywalker]
 
     runs-on: ubuntu-latest
     steps:
