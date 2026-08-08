@@ -1,8 +1,59 @@
-Copyright (c) 2026 kxtzownsu
+All Rights Reserved License
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Copyright (c) 2026 kxtzownsu. All rights reserved.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+1. Ownership
 
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+All source code, documentation, assets, and other materials in this repository
+(collectively, the "Software") are the exclusive property of kxtzownsu
+(the "Owner"). The Owner retains complete and sole ownership of the Software,
+including all intellectual property rights therein.
 
+2. Restrictions
+
+No part of the Software may be used, copied, modified, merged, published,
+distributed, sublicensed, sold, or otherwise made available to any third party,
+in any form or by any means, without the prior written permission of the Owner.
+
+This includes, but is not limited to:
+
+  - Reproduction or distribution of the Software, in whole or in part.
+  - Creation of derivative works based on the Software.
+  - Use of the Software for commercial or non-commercial purposes.
+  - Reverse engineering, decompilation, or disassembly of the Software.
+  - Incorporation of the Software, in whole or in part, into other projects.
+
+3. Permission
+
+The Owner reserves the sole and absolute right to grant or deny permission
+to use the Software, at their discretion, for any reason or no reason. Any
+permission granted may be revoked at any time without notice.
+
+Requests for permission must be directed to the Owner through kxtzownsu@gmail.com.
+
+4. No Warranty
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+OWNER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+5. Enforcement
+
+Any unauthorized use of the Software constitutes a violation of this license
+and may be subject to legal action. The Owner reserves all rights not
+expressly granted herein.
+
+6. Specific Permissions
+
+Notwithstanding the restrictions set forth in Section 2, the Owner hereby grants permission to organization "crosbreaker" to use, execute, copy, and redistribute the Software, in whole or in part, within their repositories.
+
+This permission is granted under the following conditions:
+
+* The Software must remain unmodified.
+* Proper attribution to the Owner (kxtzownsu) must be clearly maintained.
+* This permission is non-transferable and applies only to "crosbreaker".
+
+All other rights remain reserved by the Owner. This exception may be revoked at any time at the Owner’s discretion.
