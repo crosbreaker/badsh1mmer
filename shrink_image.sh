@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (c) 2026 kxtzownsu
-# A copy of the MIT license should have been provided alongside this file.
+# A copy of the All Rights Reserved license should have been provided with this file.
 
 # partition numbers to delete
 DELETE_PARTS="8 9 10 11 12"
@@ -98,7 +98,7 @@ main(){
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo "!!!! if you see any signature errors below this, ignore them, they are intended !!!!"
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-	echo -e "$NEW_LAYOUT" | sfdisk "$OUTPUT_FILE" --force --quiet
+  echo -e "$NEW_LAYOUT" | sfdisk "$OUTPUT_FILE" --force --quiet
   echo "Done!"
   exit 0
 }
