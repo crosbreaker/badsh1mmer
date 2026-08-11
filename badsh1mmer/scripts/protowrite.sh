@@ -68,6 +68,9 @@ get_booted_kernnum() {
         echo -n 4
     fi
 }
+get_booted_rootnum() {
+	expr $(get_booted_kernnum) + 1
+}
 
 checkcurrentstate(){
     echo "Checking current state..."
