@@ -38,23 +38,26 @@ get_fixed_dst_drive() {
 	fi
 	echo "${dev}"
 }
-
 wipeandmountstate(){
-	vgchange -ay >/dev/null 2>&1
-    volgroup=$(vgscan | grep "Found volume group" | awk '{print $4}' | tr -d '"')
+  	mkdir -p /localroot 
+	mount ${intdis_prefix}$(get_booted_rootnum) /localroot -o ro
+	# yes i know below is really inefficient, but the other way isnt work and i cant understand why
+	sync # call just in case?
+	mount --bind /dev /localroot/dev
+	mount --bind /proc /localroot/proc
+	mount --bind /sys /localroot/sys
+	mount --bind /run /localroot/run
+	chroot /localroot /sbin/vgchange -ay
+    volgroup=$(chroot /localroot /sbin/vgscan | grep "Found volume group" | awk '{print $4}' | tr -d '"')
 	if [ -b "/dev/$volgroup/unencrypted" ]; then
-		echo "Debug: Found volume group: $volgroup"
-		echo
-		mkdir -p "$stateful_mount"
-		echo "Wiping stateful..."
-		mkfs.ext4 -F /dev/$volgroup/unencrypted >/dev/null 2>&1
-        mount /dev/$volgroup/unencrypted "$stateful_mount"
+		echo "found volume group: $volgroup"
+		mkdir "$stateful_mount"
+		chroot /localroot /sbin/mkfs.ext4 -F /dev/$volgroup/unencrypted
+    	mount /dev/$volgroup/unencrypted "$stateful_mount"
 	else
 		echo "lvm fail, falling back on p1"
-		mkdir -p "$stateful_mount"
-		echo "Wiping stateful..."
-		mkfs.ext4 -F "${intdis_prefix}1" || fail "no stateful could be found/wiped"
-        mount "$intdis_prefix"1 "$stateful_mount"
+		chroot /localroot /sbin/mkfs.ext4 -F "$intdis_prefix"1 || fail "no stateful could be found/wiped"
+    	mount "$intdis_prefix"1 "$stateful_mount"
 	fi
 }
 
